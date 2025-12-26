@@ -23,7 +23,7 @@ const dummyJobs = [
   {
     id: 1,
     title: "Frontend Developer",
-    company: "Tech Corp",
+    company_name: "Tech Corp",
     location: "Boston, MA",
     postedTime: "24 hours ago",
     workType: "Remote",
@@ -31,7 +31,7 @@ const dummyJobs = [
   {
     id: 2,
     title: "Backend Engineer",
-    company: "Data Systems",
+    company_name: "Data Systems",
     location: "New York, NY",
     postedTime: "24 hours ago",
     workType: "Remote",
@@ -39,7 +39,7 @@ const dummyJobs = [
   {
     id: 3,
     title: "Product Manager",
-    company: "Innovate Inc",
+    company_name: "Innovate Inc",
     location: "San Francisco, CA",
     postedTime: "24 hours ago",
     workType: "Remote",
@@ -47,7 +47,7 @@ const dummyJobs = [
   {
     id: 4,
     title: "Product Manager",
-    company: "Innovate Inc",
+    company_name: "Innovate Inc",
     location: "San Francisco, CA",
     postedTime: "24 hours ago",
     workType: "Remote",
@@ -55,7 +55,7 @@ const dummyJobs = [
   {
     id: 5,
     title: "Product Manager",
-    company: "Innovate Inc",
+    company_name: "Innovate Inc",
     location: "San Francisco, CA",
     postedTime: "24 hours ago",
     workType: "Remote",
@@ -63,7 +63,7 @@ const dummyJobs = [
   {
     id: 6,
     title: "Product Manager",
-    company: "Innovate Inc",
+    company_name: "Innovate Inc",
     location: "San Francisco, CA",
     postedTime: "24 hours ago",
     workType: "Remote",
@@ -71,7 +71,7 @@ const dummyJobs = [
   {
     id: 7,
     title: "Product Manager",
-    company: "Innovate Inc",
+    company_name: "Innovate Inc",
     location: "San Francisco, CA",
     postedTime: "24 hours ago",
     workType: "Remote",
