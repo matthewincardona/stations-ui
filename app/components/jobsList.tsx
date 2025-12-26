@@ -86,7 +86,7 @@ export default function JobsList() {
   }, []);
 
   async function getJobs() {
-    const { data } = await supabase.from("jobs").select("*");
+    const { data, error } = await supabase.from("jobs").select("*").limit(9);
     setJobs(data || []);
   }
 
