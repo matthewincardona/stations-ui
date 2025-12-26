@@ -19,15 +19,18 @@ export default function JobCard({
   workType,
 }: JobCardProps) {
   return (
-    <div className="bg-white p-6 rounded-xl flex gap-8 flex-col">
+    <div className="bg-white p-6 rounded-xl flex gap-8 justify-between flex-col">
       <div>
-        <p className="text-xl font-semibold ">{title}</p>
-        <div className="flex gap-2 mt-2">
+        <span className="line-clamp-2">
+          <p className="text-xl font-semibold ">{title}</p>
+        </span>
+
+        <span className="flex gap-2 mt-2">
           <Building2 className="text-[#4A5565]" />
           <p className="text-[#4A5565] text-base">{company}</p>
-        </div>
+        </span>
       </div>
-      <div className="flex gap-2 text-sm">
+      <div className="flex flex-wrap gap-2 text-sm">
         <span className="flex gap-2 items-center rounded-full border-[#ccc9c9] border py-1 px-4">
           <MapPin className="w-4" />
           {location}
