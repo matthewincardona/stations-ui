@@ -25,6 +25,38 @@ const dummyJobs = [
     postedTime: "24 hours ago",
     workType: "Remote",
   },
+  {
+    id: 4,
+    title: "Product Manager",
+    company: "Innovate Inc",
+    location: "San Francisco, CA",
+    postedTime: "24 hours ago",
+    workType: "Remote",
+  },
+  {
+    id: 5,
+    title: "Product Manager",
+    company: "Innovate Inc",
+    location: "San Francisco, CA",
+    postedTime: "24 hours ago",
+    workType: "Remote",
+  },
+  {
+    id: 6,
+    title: "Product Manager",
+    company: "Innovate Inc",
+    location: "San Francisco, CA",
+    postedTime: "24 hours ago",
+    workType: "Remote",
+  },
+  {
+    id: 7,
+    title: "Product Manager",
+    company: "Innovate Inc",
+    location: "San Francisco, CA",
+    postedTime: "24 hours ago",
+    workType: "Remote",
+  },
 ];
 
 export default function JobsList() {
