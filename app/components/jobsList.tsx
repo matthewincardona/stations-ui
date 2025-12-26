@@ -16,7 +16,7 @@ interface Job {
   location: string;
   postedTime: string;
   workType: string;
-  jobUrl: string;
+  job_url: string;
 }
 
 const dummyJobs = [
@@ -95,7 +95,15 @@ export default function JobsList() {
       <h1 className="mb-4">Jobs List</h1>
       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 md:grid-rows-3 gap-4">
         {jobs.map(
-          ({ id, title, company_name, postedTime, location, workType }) => (
+          ({
+            id,
+            title,
+            company_name,
+            postedTime,
+            location,
+            workType,
+            job_url,
+          }) => (
             <JobCard
               key={id}
               title={title}
@@ -103,6 +111,7 @@ export default function JobsList() {
               postedTime="24 hours ago"
               location={location}
               workType="Hybrid"
+              jobUrl={job_url}
             />
           )
         )}

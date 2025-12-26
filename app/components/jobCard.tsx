@@ -9,6 +9,7 @@ interface JobCardProps {
   postedTime: string;
   location: string;
   workType: string;
+  jobUrl: string;
 }
 
 export default function JobCard({
@@ -17,33 +18,38 @@ export default function JobCard({
   postedTime,
   location,
   workType,
+  jobUrl,
 }: JobCardProps) {
   return (
-    <div className="bg-white p-6 rounded-xl flex gap-8 justify-between flex-col">
-      <div>
-        <span className="line-clamp-2">
-          <p className="text-xl font-semibold ">{title}</p>
-        </span>
+    <div className="min-h-52 bg-white p-6 rounded-xl hover:border-[#4C73F2] transition duration-200 ease-in-out border border-[#00000000]">
+      <a href={jobUrl} target="_blank">
+        <div className="h-full flex gap-8 justify-between flex-col">
+          <div>
+            <span className="line-clamp-2">
+              <p className="text-xl font-semibold">{title}</p>
+            </span>
 
-        <span className="flex gap-2 mt-2">
-          <Building2 className="text-[#4A5565]" />
-          <p className="text-[#4A5565] text-base">{company}</p>
-        </span>
-      </div>
-      <div className="flex flex-wrap gap-2 text-sm">
-        <span className="flex gap-2 items-center rounded-full border-[#ccc9c9] border py-1 px-4">
-          <MapPin className="w-4" />
-          {location}
-        </span>
-        <span className="flex gap-2 items-center rounded-full border-[#ccc9c9] border py-1 px-4">
-          <Briefcase className="w-4" />
-          {workType}
-        </span>
-        <span className="flex gap-2 items-center rounded-full border-[#ccc9c9] border py-1 px-4">
-          <Clock className="w-4" />
-          {postedTime}
-        </span>
-      </div>
+            <span className="flex gap-2 mt-2">
+              <Building2 className="text-[#4A5565]" />
+              <p className="text-[#4A5565] text-base">{company}</p>
+            </span>
+          </div>
+          <div className="flex flex-wrap gap-2 text-sm">
+            <span className="flex gap-2 items-center rounded-full border-[#ccc9c9] border py-1 px-4">
+              <MapPin className="w-4" />
+              {location}
+            </span>
+            <span className="flex gap-2 items-center rounded-full border-[#ccc9c9] border py-1 px-4">
+              <Briefcase className="w-4" />
+              {workType}
+            </span>
+            <span className="flex gap-2 items-center rounded-full border-[#ccc9c9] border py-1 px-4">
+              <Clock className="w-4" />
+              {postedTime}
+            </span>
+          </div>
+        </div>
+      </a>
     </div>
   );
 }
