@@ -1,9 +1,9 @@
 export default function SVGLoader() {
   return (
     <svg
-      className="rounded-xl"
-      width="501"
-      height="208"
+      className="rounded-xl w-full"
+      // width="501"
+      // height="208"
       viewBox="0 0 501 208"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
