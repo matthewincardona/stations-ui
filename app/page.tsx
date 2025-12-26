@@ -3,7 +3,7 @@ import JobsList from "./components/jobsList";
 
 export default function Home() {
   return (
-    <div>
+    <div className="p-3">
       <Navbar />
       <JobsList />
     </div>
