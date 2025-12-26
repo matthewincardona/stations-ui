@@ -100,9 +100,9 @@ export default function JobsList() {
               key={id}
               title={title}
               company={company_name}
-              postedTime={postedTime}
+              postedTime="24 hours ago"
               location={location}
-              workType={workType}
+              workType="Hybrid"
             />
           )
         )}
