@@ -1,10 +1,11 @@
 "use client";
 
 import JobCard from "./jobCard";
-import SkeletonLoader from "./animatedSkeletonLoader";
+// import SkeletonLoader from "./animatedSkeletonLoader";
 import SVGLoader from "./skeletonLoader";
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
+import { log } from "console";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -84,16 +85,34 @@ export default function JobsList() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [fetchError, setFetchError] = useState<string | null>(null);
+  const [page, setPage] = useState<number>(1);
 
   useEffect(() => {
     // setLoading(true);
-    getJobs();
+    getJobs(0, 8);
   }, []);
 
-  async function getJobs() {
+  const prevPage = () => {
+    getJobs((page - 2) * 9, (page - 1) * 9 - 1);
+    setPage(page - 1);
+  };
+
+  const nextPage = () => {
+    getJobs(page * 9, (page + 1) * 9 - 1);
+    setPage(page + 1);
+  };
+
+  async function getJobs(rangeLower: number, rangeUpper: number) {
+    setLoading(true);
     setFetchError(null);
 
-    const { data, error } = await supabase.from("jobs").select("*").limit(9);
+    console.log(rangeLower, rangeUpper);
+
+    const { data, error } = await supabase
+      .from("jobs")
+      .select("*")
+      .limit(9)
+      .range(rangeLower, rangeUpper);
 
     if (error) {
       console.error("Error fetching jobs:", error);
@@ -134,8 +153,22 @@ export default function JobsList() {
           )
         )}
       </div>
-      <div className="">
-        <p>pagination goes here</p>
+      <div className="flex justify-end mt-8 gap-4">
+        {page !== 1 && (
+          <button
+            className="bg-white rounded-full py-2 px-6 cursor-pointer hover:border-[#4C73F2] transition duration-200 ease-in-out border border-[#00000000]"
+            onClick={() => prevPage()}
+          >
+            Prev
+          </button>
+        )}
+
+        <button
+          className="bg-white rounded-full py-2 px-6 cursor-pointer hover:border-[#4C73F2] transition duration-200 ease-in-out border border-[#00000000]"
+          onClick={() => nextPage()}
+        >
+          Next
+        </button>
       </div>
     </div>
   );
