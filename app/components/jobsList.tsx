@@ -5,7 +5,7 @@ const dummyJobs = [
     id: 1,
     title: "Frontend Developer",
     company: "Tech Corp",
-    location: "Remote",
+    location: "Boston, MA",
     postedTime: "24 hours ago",
     workType: "Remote",
   },
@@ -29,9 +29,9 @@ const dummyJobs = [
 
 export default function JobsList() {
   return (
-    <div className="mt-8 bg-[#F5F5F5] p-8 max-w-7xl m-auto rounded-xl">
-      <h1>Jobs List</h1>
-      <div>
+    <div className="mt-8 bg-[#F5F5F5] p-8 max-w-400 m-auto rounded-xl">
+      <h1 className="mb-4">Jobs List</h1>
+      <div className="grid md:grid-cols-3 grid-cols-1 gap-4">
         {dummyJobs.map(
           ({ id, title, company, postedTime, location, workType }) => (
             <JobCard
