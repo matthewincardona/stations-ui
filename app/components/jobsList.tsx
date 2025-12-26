@@ -1,4 +1,23 @@
+"use client";
+
 import JobCard from "./jobCard";
+import { useEffect, useState } from "react";
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!
+);
+
+interface Job {
+  id: string;
+  title: string;
+  company_name: string;
+  location: string;
+  postedTime: string;
+  workType: string;
+  jobUrl: string;
+}
 
 const dummyJobs = [
   {
@@ -60,16 +79,27 @@ const dummyJobs = [
 ];
 
 export default function JobsList() {
+  const [jobs, setJobs] = useState<Job[]>([]);
+
+  useEffect(() => {
+    getJobs();
+  }, []);
+
+  async function getJobs() {
+    const { data } = await supabase.from("jobs").select("*");
+    setJobs(data || []);
+  }
+
   return (
     <div className="mt-8 bg-[#F5F5F5] p-8 max-w-400 m-auto rounded-xl">
       <h1 className="mb-4">Jobs List</h1>
       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 md:grid-rows-3 gap-4">
-        {dummyJobs.map(
-          ({ id, title, company, postedTime, location, workType }) => (
+        {jobs.map(
+          ({ id, title, company_name, postedTime, location, workType }) => (
             <JobCard
               key={id}
               title={title}
-              company={company}
+              company={company_name}
               postedTime={postedTime}
               location={location}
               workType={workType}
