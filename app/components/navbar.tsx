@@ -1,7 +1,7 @@
 export default function Navbar() {
   return (
     <nav className="max-w-full  flex justify-center text-white">
-      <div className="flex justify-between bg-[#4C73F2] h-12 max-w-400 grow items-center rounded-xl p-8 mt-8">
+      <div className="flex justify-between bg-[#4C73F2] h-12 max-w-400 grow items-center rounded-xl p-8">
         <div className="flex gap-4">
           <p>
             <b>Stations</b>
