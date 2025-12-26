@@ -63,7 +63,7 @@ export default function JobsList() {
   return (
     <div className="mt-8 bg-[#F5F5F5] p-8 max-w-400 m-auto rounded-xl">
       <h1 className="mb-4">Jobs List</h1>
-      <div className="grid md:grid-cols-3 grid-cols-1 gap-4">
+      <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 md:grid-rows-3 gap-4">
         {dummyJobs.map(
           ({ id, title, company, postedTime, location, workType }) => (
             <JobCard
@@ -76,6 +76,9 @@ export default function JobsList() {
             />
           )
         )}
+      </div>
+      <div className="">
+        <p>pagination goes here</p>
       </div>
     </div>
   );
