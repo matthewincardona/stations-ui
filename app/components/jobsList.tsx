@@ -82,15 +82,15 @@ const dummyJobs = [
 
 export default function JobsList() {
   const [jobs, setJobs] = useState<Job[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [fetchError, setFetchError] = useState<string | null>(null);
 
   useEffect(() => {
+    // setLoading(true);
     getJobs();
   }, []);
 
   async function getJobs() {
-    setLoading(true);
     setFetchError(null);
 
     const { data, error } = await supabase.from("jobs").select("*").limit(9);
