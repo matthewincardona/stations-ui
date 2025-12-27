@@ -96,8 +96,6 @@ export default function JobsList() {
   const searchParams = useSearchParams();
   const page = Number(searchParams.get("page")) || 1;
 
-  const params = useParams<{ tag: string; item: string }>();
-
   useEffect(() => {
     const rangeLower = (page - 1) * 9;
     const rangeUpper = page * 9 - 1;
@@ -119,8 +117,6 @@ export default function JobsList() {
   async function getJobs(rangeLower: number, rangeUpper: number) {
     setLoading(true);
     setFetchError(null);
-
-    console.log(rangeLower, rangeUpper);
 
     const { data, error } = await supabase
       .from("jobs")
