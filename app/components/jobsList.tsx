@@ -4,12 +4,7 @@ import JobCard from "./jobCard";
 // import SkeletonLoader from "./animatedSkeletonLoader";
 import SVGLoader from "./skeletonLoader";
 import { useEffect, useState } from "react";
-import {
-  useParams,
-  useRouter,
-  usePathname,
-  useSearchParams,
-} from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { createClient } from "@supabase/supabase-js";
 
 const supabase = createClient(
@@ -26,65 +21,6 @@ interface Job {
   workType: string;
   job_url: string;
 }
-
-const dummyJobs = [
-  {
-    id: 1,
-    title: "Frontend Developer",
-    company_name: "Tech Corp",
-    location: "Boston, MA",
-    postedTime: "24 hours ago",
-    workType: "Remote",
-  },
-  {
-    id: 2,
-    title: "Backend Engineer",
-    company_name: "Data Systems",
-    location: "New York, NY",
-    postedTime: "24 hours ago",
-    workType: "Remote",
-  },
-  {
-    id: 3,
-    title: "Product Manager",
-    company_name: "Innovate Inc",
-    location: "San Francisco, CA",
-    postedTime: "24 hours ago",
-    workType: "Remote",
-  },
-  {
-    id: 4,
-    title: "Product Manager",
-    company_name: "Innovate Inc",
-    location: "San Francisco, CA",
-    postedTime: "24 hours ago",
-    workType: "Remote",
-  },
-  {
-    id: 5,
-    title: "Product Manager",
-    company_name: "Innovate Inc",
-    location: "San Francisco, CA",
-    postedTime: "24 hours ago",
-    workType: "Remote",
-  },
-  {
-    id: 6,
-    title: "Product Manager",
-    company_name: "Innovate Inc",
-    location: "San Francisco, CA",
-    postedTime: "24 hours ago",
-    workType: "Remote",
-  },
-  {
-    id: 7,
-    title: "Product Manager",
-    company_name: "Innovate Inc",
-    location: "San Francisco, CA",
-    postedTime: "24 hours ago",
-    workType: "Remote",
-  },
-];
 
 export default function JobsList() {
   const [jobs, setJobs] = useState<Job[]>([]);
@@ -140,28 +76,30 @@ export default function JobsList() {
       <h1 className="mb-4">Jobs List</h1>
       {fetchError && <p className="text-red-600 mb-4">{fetchError}</p>}
       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:grid-rows-[repeat(3,minmax(208px,auto))] md:grid-rows-[repeat(3,minmax(208px,auto))] gap-4">
-        {loading && Array.from({ length: 9 }, (_, i) => <SVGLoader key={i} />)}
-        {jobs.map(
-          ({
-            id,
-            title,
-            company_name,
-            postedTime,
-            location,
-            workType,
-            job_url,
-          }) => (
-            <JobCard
-              key={id}
-              title={title}
-              company={company_name}
-              postedTime="24 hours ago"
-              location={location}
-              workType="Hybrid"
-              jobUrl={job_url}
-            />
-          )
-        )}
+        {/* {loading && Array.from({ length: 9 }, (_, i) => <SVGLoader key={i} />)} */}
+        {loading
+          ? Array.from({ length: 9 }, (_, i) => <SVGLoader key={i} />)
+          : jobs.map(
+              ({
+                id,
+                title,
+                company_name,
+                postedTime,
+                location,
+                workType,
+                job_url,
+              }) => (
+                <JobCard
+                  key={id}
+                  title={title}
+                  company={company_name}
+                  postedTime="24 hours ago"
+                  location={location}
+                  workType="Hybrid"
+                  jobUrl={job_url}
+                />
+              )
+            )}
       </div>
       <div className="flex justify-end mt-8 gap-4">
         {page !== 1 && (
