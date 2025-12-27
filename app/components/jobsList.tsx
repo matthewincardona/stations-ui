@@ -4,8 +4,13 @@ import JobCard from "./jobCard";
 // import SkeletonLoader from "./animatedSkeletonLoader";
 import SVGLoader from "./skeletonLoader";
 import { useEffect, useState } from "react";
+import {
+  useParams,
+  useRouter,
+  usePathname,
+  useSearchParams,
+} from "next/navigation";
 import { createClient } from "@supabase/supabase-js";
-import { log } from "console";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -85,21 +90,30 @@ export default function JobsList() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [fetchError, setFetchError] = useState<string | null>(null);
-  const [page, setPage] = useState<number>(1);
+
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const page = Number(searchParams.get("page")) || 1;
+
+  const params = useParams<{ tag: string; item: string }>();
 
   useEffect(() => {
-    // setLoading(true);
-    getJobs(0, 8);
-  }, []);
+    const rangeLower = (page - 1) * 9;
+    const rangeUpper = page * 9 - 1;
+    getJobs(rangeLower, rangeUpper);
+  }, [page]);
 
   const prevPage = () => {
-    getJobs((page - 2) * 9, (page - 1) * 9 - 1);
-    setPage(page - 1);
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("page", (page - 1).toString());
+    router.push(`${pathname}?${params.toString()}`);
   };
 
   const nextPage = () => {
-    getJobs(page * 9, (page + 1) * 9 - 1);
-    setPage(page + 1);
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("page", (page + 1).toString());
+    router.push(`${pathname}?${params.toString()}`);
   };
 
   async function getJobs(rangeLower: number, rangeUpper: number) {
