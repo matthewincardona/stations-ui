@@ -1,6 +1,6 @@
-import Navbar from "./components/navbar";
-import Filter from "./components/filter";
-import JobsList from "./components/jobsList";
+import Navbar from "./components/Navbar";
+import Filter from "./components/Filter";
+import JobsList from "./components/JobsList";
 
 export default function Home() {
   return (
