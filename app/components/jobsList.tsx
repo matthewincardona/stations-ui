@@ -3,7 +3,7 @@
 import JobCard from "./jobCard";
 // import SkeletonLoader from "./animatedSkeletonLoader";
 import SVGLoader from "./skeletonLoader";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { createClient } from "@supabase/supabase-js";
 
@@ -22,7 +22,7 @@ interface Job {
   job_url: string;
 }
 
-export default function JobsList() {
+function JobsListContent() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [fetchError, setFetchError] = useState<string | null>(null);
@@ -119,5 +119,13 @@ export default function JobsList() {
         </button>
       </div>
     </div>
+  );
+}
+
+export default function JobsList() {
+  return (
+    <Suspense>
+      <JobsListContent />
+    </Suspense>
   );
 }
