@@ -21,7 +21,7 @@ export default function JobCard({
   jobUrl,
 }: JobCardProps) {
   return (
-    <div className="min-h-52 bg-white rounded-xl hover:border-[#4C73F2] transition duration-200 ease-in-out border border-[#00000000]">
+    <div className="min-h-48 bg-white rounded-xl hover:border-[#4C73F2] transition duration-200 ease-in-out border border-[#00000000]">
       <a href={jobUrl} target="_blank">
         <div className="p-6 h-full flex gap-8 justify-between flex-col">
           <div>

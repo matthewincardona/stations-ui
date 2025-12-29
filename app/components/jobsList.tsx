@@ -75,7 +75,7 @@ function JobsListContent() {
     <div className="mt-6 bg-[#F5F5F5] p-8 max-w-400 m-auto rounded-xl">
       <h1 className="mb-4 ">Jobs List</h1>
       {fetchError && <p className="text-red-600 mb-4">{fetchError}</p>}
-      <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:grid-rows-[repeat(3,minmax(208px,auto))] md:grid-rows-[repeat(3,minmax(208px,auto))] gap-4">
+      <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:grid-rows-[repeat(3,minmax(192px,auto))] md:grid-rows-[repeat(3,minmax(208px,auto))] gap-4">
         {/* {loading && Array.from({ length: 9 }, (_, i) => <SVGLoader key={i} />)} */}
         {loading
           ? Array.from({ length: 9 }, (_, i) => <SVGLoader key={i} />)
