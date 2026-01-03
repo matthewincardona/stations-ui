@@ -89,6 +89,7 @@ function JobsListContent() {
                 job_url,
               }) => (
                 <JobCard
+                  id={id}
                   key={id}
                   title={title}
                   company={company_name}

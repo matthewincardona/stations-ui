@@ -1,8 +1,10 @@
 import { Building2 } from "lucide-react";
 import { MapPin } from "lucide-react";
 import { Briefcase } from "lucide-react";
+import Link from "next/link";
 
 interface JobCardProps {
+  id: string;
   title: string;
   company: string;
   postedTime: string;
@@ -12,6 +14,7 @@ interface JobCardProps {
 }
 
 export default function JobCard({
+  id,
   title,
   company,
   postedTime,
@@ -20,33 +23,47 @@ export default function JobCard({
   jobUrl,
 }: JobCardProps) {
   return (
-    <div className="bg-white rounded-xl hover:border-[#4C73F2] transition duration-200 ease-in-out border border-[#00000000]">
-      <a href={jobUrl} target="_blank">
-        <div className="p-4 h-full flex gap-4 justify-between flex-col">
-          <div>
-            <span className="flex mb-2 w-full text-xs">{postedTime}</span>
-
-            <span className="line-clamp-1">
-              <p className="text-lg font-semibold">{title}</p>
-            </span>
-
-            <span className="flex items-center gap-2 mt-1">
-              <Building2 className="text-[#4A5565]" />
-              <p className="text-[#4A5565] text-sm">{company}</p>
-            </span>
-          </div>
-          <div className="flex flex-wrap gap-2 text-xs">
-            <span className="flex gap-2 items-center rounded-full border-[#ccc9c9] border py-1 px-2">
-              <MapPin className="w-4" />
-              {location}
-            </span>
-            <span className="flex gap-2 items-center rounded-full border-[#ccc9c9] border py-1 px-2">
-              <Briefcase className="w-4" />
-              {workType}
-            </span>
-          </div>
+    <Link href={`/jobs/${id}`} className="block">
+      <div
+        className="
+          bg-white rounded-2xl border border-[#E5E5E5]
+          transition-all duration-200 ease-out
+          hover:shadow-lg hover:border-[#4C73F2]
+          hover:-translate-y-[2px]
+          p-5 h-full flex flex-col justify-between
+        "
+      >
+        {/* Posted time badge */}
+        <div className="mb-3">
+          <span className="inline-block text-[0.7rem] text-[#4C73F2] bg-[#e9eeff] font-medium px-2 py-[2px] rounded-full">
+            {postedTime}
+          </span>
         </div>
-      </a>
-    </div>
+
+        {/* Title */}
+        <h3 className="font-semibold text-[1.15rem] leading-snug line-clamp-2">
+          {title}
+        </h3>
+
+        {/* Company */}
+        <div className="flex items-center gap-2 mt-2">
+          <Building2 className="text-[#4A5565] w-4 h-4" />
+          <p className="text-[#4A5565] text-sm truncate">{company}</p>
+        </div>
+
+        {/* Tags */}
+        <div className="flex flex-wrap gap-2 mt-4 text-xs">
+          <span className="flex gap-1.5 items-center rounded-full bg-[#F7F7F7] border border-[#DDD] py-1 px-2">
+            <MapPin className="w-3.5 h-3.5" />
+            {location}
+          </span>
+
+          <span className="flex gap-1.5 items-center rounded-full bg-[#F7F7F7] border border-[#DDD] py-1 px-2">
+            <Briefcase className="w-3.5 h-3.5" />
+            {workType}
+          </span>
+        </div>
+      </div>
+    </Link>
   );
 }
