@@ -5,7 +5,7 @@ export default function Filter() {
     <div className="max-w-400 mx-auto mt-2 flex items-center justify-center">
       <div className="flex gap-3">
         <div className="flex gap-2">
-          <p className="text-xl m-auto">Help me find jobs for</p>
+          <p className="text-xl m-auto">Search for jobs in</p>
           <span className="flex gap-2 rounded-full bg-[#4C73F2] text-white px-4 py-1.5">
             <p className="text-base">UX Design</p>
             <Triangle className="rotate-180 w-4" />

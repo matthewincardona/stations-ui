@@ -25,6 +25,7 @@ export default function JobCard({
 }: JobCardProps) {
   return (
     <Link href={`/jobs/${id}`} className="block">
+      {" "}
       <motion.div
         initial={{ opacity: 0, y: 0 }}
         animate={{ opacity: 1, y: 0 }}

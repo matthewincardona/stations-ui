@@ -7,8 +7,13 @@ export default function Home() {
     <div>
       <Navbar />
       <div className="p-3 mt-20">
-        <h1 className="text-center text-4xl font-semibold mb-6">
-          Find your next entry-level job or internship
+        <h1 className="text-center text-4xl font-semibold mb-5">
+          Find your next <span className="text-[#4C73F2]">entry-level</span> job
+          or
+          <span className="text-[#c9acac] hover:text-[#4C73F2] cursor-pointer">
+            {" "}
+            internship
+          </span>
         </h1>
         <Filter />
         <div className="mt-12">
