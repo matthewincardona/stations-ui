@@ -39,7 +39,7 @@ export default function JobCard({
       >
         {/* Posted time badge */}
         <div className="mb-3">
-          <span className="inline-block text-[0.7rem] text-[#4C73F2] bg-[#e9eeff] font-medium px-2 py-[2px] rounded-full">
+          <span className="inline-block text-[0.7rem] text-[#4C73F2] bg-[#e9eeff] font-medium px-2 py-0.5 rounded-full">
             {postedTime}
           </span>
         </div>

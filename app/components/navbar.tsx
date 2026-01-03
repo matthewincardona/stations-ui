@@ -1,6 +1,6 @@
 export default function Navbar() {
   return (
-    <nav className="max-w-full flex justify-center bg-[#4C73F2] text-white py-2 px-3">
+    <nav className="max-w-full flex justify-center border border-[#ececec] py-2 px-3">
       <div className="flex justify-between h-12 max-w-400 grow items-center rounded-xl ">
         <div className="flex gap-4">
           <a href="/">
@@ -8,7 +8,6 @@ export default function Navbar() {
               <b>Stations</b>
             </p>
           </a>
-          <p>Entry Level Jobs For Tech People</p>
         </div>
         <ul className="flex gap-4">
           <li className="underline">

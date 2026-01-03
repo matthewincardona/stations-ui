@@ -6,9 +6,14 @@ export default function Home() {
   return (
     <div>
       <Navbar />
-      <div className="p-3">
+      <div className="p-3 mt-12">
+        <h1 className="text-center font-semibold">
+          Find your next entry-level job or internship
+        </h1>
         <Filter />
-        <JobsList />
+        <div className="mt-10">
+          <JobsList />
+        </div>
       </div>
       <a
         href="https://forms.gle/pSUDzXGWXQimAgce6"

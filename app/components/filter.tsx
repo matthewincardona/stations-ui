@@ -2,7 +2,7 @@ import { Triangle } from "lucide-react";
 
 export default function Filter() {
   return (
-    <div className="max-w-400 mx-auto mt-10 flex items-center justify-between">
+    <div className="max-w-400 mx-auto mt-2 flex items-center justify-center">
       <div className="flex gap-3">
         <div className="flex gap-2">
           <p className="text-xl m-auto">Help me find jobs for</p>
@@ -19,7 +19,7 @@ export default function Filter() {
           </span>
         </div>
       </div>
-      <div>12 jobs found</div>
+      {/* <div>12 jobs found</div> */}
     </div>
   );
 }
