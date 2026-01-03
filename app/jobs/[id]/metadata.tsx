@@ -5,7 +5,11 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!
 );
 
-export async function generateMetadata({ params }) {
+interface Params {
+  id: string;
+}
+
+export async function generateMetadata({ params }: { params: Params }) {
   const { data } = await supabase
     .from("jobs")
     .select("title, company_name")
