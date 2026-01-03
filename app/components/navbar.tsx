@@ -10,10 +10,10 @@ export default function Navbar() {
           </a>
         </div>
         <ul className="flex gap-4">
-          <li className="underline">
+          <li className="hover:underline">
             <a href="https://stations.matthewincardona.com">Find Jobs</a>
           </li>
-          <li className="underline">
+          <li className="hover:underline">
             <a href="https://stations.parser.matthewincardona.com">
               Test Your Resume
             </a>

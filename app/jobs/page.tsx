@@ -18,7 +18,7 @@ interface Job {
   company_name: string;
   location: string;
   postedTime: string;
-  job_type: string;
+  workType: string;
   job_url: string;
 }
 
@@ -85,7 +85,7 @@ function JobsListContent() {
                 company_name,
                 postedTime,
                 location,
-                job_type,
+                workType,
                 job_url,
               }) => (
                 <JobCard

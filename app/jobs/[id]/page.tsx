@@ -16,10 +16,10 @@ interface Job {
   title: string;
   company_name: string;
   location: string;
-  postedTime: string;
-  workType: string;
+  posted_at: string;
+  job_type: string;
   job_url: string;
-  description: string;
+  description_md: string;
 }
 
 function JobDetailContent() {
@@ -83,8 +83,8 @@ function JobDetailContent() {
 
         <div className="flex flex-col gap-1 text-gray-600 text-sm mb-10">
           <p>{job.location}</p>
-          <p>{job.workType}</p>
-          <p>Posted: {job.postedTime}</p>
+          <p>{job.job_type}</p>
+          <p>Posted: {job.posted_at}</p>
         </div>
 
         <div className="mt-6">
@@ -92,7 +92,7 @@ function JobDetailContent() {
             Job Description
           </h2>
           <p className="whitespace-pre-wrap leading-relaxed text-[1.05rem] text-gray-800 tracking-wide">
-            {job.description}
+            {job.description_md}
           </p>
         </div>
 
