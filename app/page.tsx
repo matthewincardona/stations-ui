@@ -4,10 +4,12 @@ import JobsList from "./components/JobsList";
 
 export default function Home() {
   return (
-    <div className="p-3">
+    <div>
       <Navbar />
-      <Filter />
-      <JobsList />
+      <div className="p-3">
+        <Filter />
+        <JobsList />
+      </div>
       <a
         href="https://forms.gle/pSUDzXGWXQimAgce6"
         className="text-white py-2 px-4 rounded-sm bg-[#4166e0] hover:opacity-80 transition-all absolute bottom-10 right-10"
