@@ -21,31 +21,29 @@ export default function JobCard({
   jobUrl,
 }: JobCardProps) {
   return (
-    <div className="min-h-48 bg-white rounded-xl hover:border-[#4C73F2] transition duration-200 ease-in-out border border-[#00000000]">
+    <div className=" bg-white rounded-xl hover:border-[#4C73F2] transition duration-200 ease-in-out border border-[#00000000]">
       <a href={jobUrl} target="_blank">
-        <div className="p-6 h-full flex gap-8 justify-between flex-col">
+        <div className="p-4 h-full flex gap-8 justify-between flex-col">
           <div>
+            <span className="flex mb-2 w-full text-xs">{postedTime}</span>
+
             <span className="line-clamp-2">
-              <p className="text-xl font-semibold">{title}</p>
+              <p className="text-lg font-semibold">{title}</p>
             </span>
 
-            <span className="flex gap-2 mt-2">
+            <span className="flex items-center gap-2 mt-2">
               <Building2 className="text-[#4A5565]" />
-              <p className="text-[#4A5565] text-base">{company}</p>
+              <p className="text-[#4A5565] text-sm">{company}</p>
             </span>
           </div>
-          <div className="flex flex-wrap gap-2 text-sm">
-            <span className="flex gap-2 items-center rounded-full border-[#ccc9c9] border py-1 px-4">
+          <div className="flex flex-wrap gap-2 text-xs">
+            <span className="flex gap-2 items-center rounded-full border-[#ccc9c9] border py-1 px-2">
               <MapPin className="w-4" />
               {location}
             </span>
-            <span className="flex gap-2 items-center rounded-full border-[#ccc9c9] border py-1 px-4">
+            <span className="flex gap-2 items-center rounded-full border-[#ccc9c9] border py-1 px-2">
               <Briefcase className="w-4" />
               {workType}
-            </span>
-            <span className="flex gap-2 items-center rounded-full border-[#ccc9c9] border py-1 px-4">
-              <Clock className="w-4" />
-              {postedTime}
             </span>
           </div>
         </div>
