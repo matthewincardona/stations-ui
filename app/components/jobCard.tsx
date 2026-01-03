@@ -1,7 +1,6 @@
 import { Building2 } from "lucide-react";
 import { MapPin } from "lucide-react";
 import { Briefcase } from "lucide-react";
-import { Clock } from "lucide-react";
 
 interface JobCardProps {
   title: string;
