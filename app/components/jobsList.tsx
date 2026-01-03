@@ -33,8 +33,8 @@ function JobsListContent() {
   const page = Number(searchParams.get("page")) || 1;
 
   useEffect(() => {
-    const rangeLower = (page - 1) * 8;
-    const rangeUpper = page * 8 - 1;
+    const rangeLower = (page - 1) * 9;
+    const rangeUpper = page * 9 - 1;
     getJobs(rangeLower, rangeUpper);
   }, [page]);
 
@@ -57,7 +57,7 @@ function JobsListContent() {
     const { data, error } = await supabase
       .from("jobs")
       .select("*")
-      .limit(8)
+      .limit(9)
       .range(rangeLower, rangeUpper);
 
     if (error) {
@@ -74,7 +74,7 @@ function JobsListContent() {
   return (
     <div className="mt-6 bg-[#F5F5F5] p-4 max-w-400 m-auto rounded-xl">
       {fetchError && <p className="text-red-600 mb-4">{fetchError}</p>}
-      <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1 lg:grid-rows-[repeat(2,minmax(160px,auto))] md:grid-rows-[repeat(3,minmax(208px,auto))] gap-4">
+      <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:grid-rows-[repeat(2,minmax(160px,auto))] md:grid-rows-[repeat(3,minmax(208px,auto))] gap-4">
         {/* {loading && Array.from({ length: 9 }, (_, i) => <SVGLoader key={i} />)} */}
         {loading
           ? Array.from({ length: 9 }, (_, i) => <SVGLoader key={i} />)

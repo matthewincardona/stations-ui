@@ -21,9 +21,9 @@ export default function JobCard({
   jobUrl,
 }: JobCardProps) {
   return (
-    <div className=" bg-white rounded-xl hover:border-[#4C73F2] transition duration-200 ease-in-out border border-[#00000000]">
+    <div className="bg-white rounded-xl hover:border-[#4C73F2] transition duration-200 ease-in-out border border-[#00000000]">
       <a href={jobUrl} target="_blank">
-        <div className="p-4 h-full flex gap-8 justify-between flex-col">
+        <div className="p-4 h-full flex gap-4 justify-between flex-col">
           <div>
             <span className="flex mb-2 w-full text-xs">{postedTime}</span>
 
@@ -31,7 +31,7 @@ export default function JobCard({
               <p className="text-lg font-semibold">{title}</p>
             </span>
 
-            <span className="flex items-center gap-2 mt-2">
+            <span className="flex items-center gap-2 mt-1">
               <Building2 className="text-[#4A5565]" />
               <p className="text-[#4A5565] text-sm">{company}</p>
             </span>
