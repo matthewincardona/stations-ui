@@ -2,6 +2,7 @@ import { Building2 } from "lucide-react";
 import { MapPin } from "lucide-react";
 import { Briefcase } from "lucide-react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 interface JobCardProps {
   id: string;
@@ -24,12 +25,15 @@ export default function JobCard({
 }: JobCardProps) {
   return (
     <Link href={`/jobs/${id}`} className="block">
-      <div
+      <motion.div
+        initial={{ opacity: 0, y: 0 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.25, ease: "easeOut" }}
         className="
           bg-white rounded-2xl border border-[#E5E5E5]
           transition-all duration-200 ease-out
           hover:shadow-lg hover:border-[#4C73F2]
-          hover:-translate-y-[2px]
+          hover:-translate-y-0.5
           p-5 h-full flex flex-col justify-between
         "
       >
@@ -63,7 +67,7 @@ export default function JobCard({
             {workType}
           </span>
         </div>
-      </div>
+      </motion.div>
     </Link>
   );
 }
