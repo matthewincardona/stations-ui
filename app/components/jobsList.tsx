@@ -115,7 +115,7 @@ function JobsListContent() {
           className="bg-white rounded-full py-2 px-6 cursor-pointer hover:border-[#4C73F2] transition duration-200 ease-in-out border border-[#00000000]"
           onClick={() => nextPage()}
         >
-          Next?
+          Next
         </button>
       </div>
     </div>
