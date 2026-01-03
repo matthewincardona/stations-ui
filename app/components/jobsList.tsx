@@ -100,7 +100,7 @@ function JobsListContent() {
               )
             )}
       </div>
-      <div className="flex justify-end mt-8 gap-4">
+      <div className="text-sm flex justify-end mt-8 gap-4">
         {page !== 1 && (
           <button
             className="bg-white rounded-full py-2 px-6 cursor-pointer hover:border-[#4C73F2] transition duration-200 ease-in-out border border-[#00000000]"

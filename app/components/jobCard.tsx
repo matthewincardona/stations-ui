@@ -27,7 +27,7 @@ export default function JobCard({
           <div>
             <span className="flex mb-2 w-full text-xs">{postedTime}</span>
 
-            <span className="line-clamp-2">
+            <span className="line-clamp-1">
               <p className="text-lg font-semibold">{title}</p>
             </span>
 
