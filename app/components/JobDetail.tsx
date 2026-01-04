@@ -51,7 +51,7 @@ export default function JobDetail({ id }: { id: string }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.25, ease: "easeOut" }}
     >
-      <div className="break-all m-auto bg-white p-10 max-h-180 overflow-y-auto">
+      <div className="m-auto bg-white p-10 max-h-180 overflow-y-auto">
         <div className="flex lg:flex-row md:flex-col items-start justify-between lg:gap-12 md:gap-0 md:mb-8">
           <div className="flex flex-col">
             <h1 className="text-wrap text-4xl font-semibold mb-2">
@@ -62,7 +62,7 @@ export default function JobDetail({ id }: { id: string }) {
           <a
             href={job.job_url}
             target="_blank"
-            className="text-center w-50 bg-[#4C73F2] text-white py-3 px-10 rounded-full text-lg hover:opacity-90 transition"
+            className="text-nowrap text-center w-50 bg-[#4C73F2] text-white py-3 px-10 rounded-full text-base hover:opacity-90 transition"
           >
             Apply Now
           </a>
