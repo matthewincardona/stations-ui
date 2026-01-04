@@ -1,8 +1,8 @@
 "use client";
 
-import JobCard from "./JobCard";
+import JobCard from "../components/JobCard";
 // import SkeletonLoader from "./animatedSkeletonLoader";
-import SVGLoader from "./SkeletonLoader";
+import SVGLoader from "../components/SkeletonLoader";
 import { useEffect, useState, Suspense } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { createClient } from "@supabase/supabase-js";
