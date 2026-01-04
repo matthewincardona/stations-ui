@@ -33,7 +33,7 @@ export default async function JobDetail({ id }: { id: string }) {
           <a
             href={job.job_url}
             target="_blank"
-            className="inline-block mt-12 bg-[#4C73F2] text-white py-3 px-10 rounded-full text-lg hover:opacity-90 transition"
+            className="inline-block mt-12 bg-[#FB7D0E] text-white py-3 px-10 rounded-full text-lg hover:opacity-90 transition"
           >
             Apply Now
           </a>

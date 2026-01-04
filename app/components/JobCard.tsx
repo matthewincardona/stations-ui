@@ -33,14 +33,14 @@ export default function JobCard({
         className="
           bg-white rounded-2xl border border-[#E5E5E5]
           transition-all duration-200 ease-out
-          hover:shadow-lg hover:border-[#4C73F2]
+          hover:shadow-lg hover:border-[#FB7D0E]
           hover:-translate-y-0.5
           p-5 h-full flex flex-col justify-between
         "
       >
         {/* Posted time badge */}
         <div className="mb-3">
-          <span className="inline-block text-[0.7rem] text-[#4C73F2] bg-[#e9eeff] font-medium px-2 py-0.5 rounded-full">
+          <span className="inline-block text-[0.7rem] text-[#FB7D0E] bg-[#e9eeff] font-medium px-2 py-0.5 rounded-full">
             {postedTime}
           </span>
         </div>

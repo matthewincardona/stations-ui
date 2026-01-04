@@ -62,7 +62,7 @@ export default function JobDetail({ id }: { id: string }) {
           <a
             href={job.job_url}
             target="_blank"
-            className="text-nowrap text-center w-50 bg-[#4C73F2] text-white py-3 px-10 rounded-full text-base hover:opacity-90 transition"
+            className="text-nowrap text-center w-50 bg-[#FB7D0E] text-white py-3 px-10 rounded-full text-base hover:opacity-90 transition"
           >
             Apply Now
           </a>
@@ -78,7 +78,7 @@ export default function JobDetail({ id }: { id: string }) {
           <Markdown>{job.description_md}</Markdown>
         </div>
 
-        {/* <div className="absolute top-full left-[75%] -translate-y-24 flex justify-center h-12 w-48 inset-0 bg-[#4C73F2] text-white py-3 px-10 rounded-full text-lg hover:opacity-90 transition">
+        {/* <div className="absolute top-full left-[75%] -translate-y-24 flex justify-center h-12 w-48 inset-0 bg-[#FB7D0E] text-white py-3 px-10 rounded-full text-lg hover:opacity-90 transition">
           <a href={job.job_url} target="_blank" className="">
             Apply Now
           </a>

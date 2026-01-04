@@ -6,14 +6,14 @@ export default function Filter() {
       <div className="flex gap-3">
         <div className="flex gap-2">
           <p className="text-xl m-auto">Search for jobs in</p>
-          <span className="flex gap-2 rounded-full bg-[#4C73F2] text-white px-4 py-1.5">
+          <span className="flex gap-2 rounded-full bg-[#12AAC3] text-white px-4 py-1.5">
             <p className="text-base">UX Design</p>
             <Triangle className="rotate-180 w-4" />
           </span>
         </div>
         <div className="flex gap-2">
           <p className="text-xl m-auto">in beautiful</p>
-          <span className="flex gap-2 rounded-full bg-[#4C73F2] text-white px-4 py-1.5">
+          <span className="flex gap-2 rounded-full bg-[#12AAC3] text-white px-4 py-1.5">
             <p className="text-base">New York City</p>
             <Triangle className="rotate-180 w-4" />
           </span>
