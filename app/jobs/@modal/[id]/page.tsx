@@ -34,7 +34,7 @@ export default function JobModal() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 40, scale: 0.98 }}
           transition={{ duration: 0.25, ease: "easeOut" }}
-          className="scroll bg-white rounded-2xl shadow-xl p-8 m-3 max-w-6xl w-full relative max-h-full"
+          className="scroll bg-white rounded-2xl shadow-xl p-8 max-w-6xl w-full relative max-h-full mt-8 mb-8"
           onClick={(e) => e.stopPropagation()} // prevent closing on inside click
         >
           <button

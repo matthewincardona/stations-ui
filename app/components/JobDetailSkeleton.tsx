@@ -1,6 +1,6 @@
 export default function JobDetailSkeleton() {
   return (
-    <div className="max-w-3xl m-auto bg-white p-6 rounded-xl mt-10 shadow-sm animate-pulse">
+    <div className="min-h-180 m-auto bg-white p-6 rounded-xl mt-10 shadow-sm animate-pulse">
       <div className="w-24 h-8 bg-gray-300 rounded-full mb-4" />
 
       <div className="w-3/4 h-6 bg-gray-300 rounded mb-2" />

@@ -51,10 +51,22 @@ export default function JobDetail({ id }: { id: string }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.25, ease: "easeOut" }}
     >
-      <div className="m-auto bg-white p-10  max-h-180 overflow-auto w-full">
-        <h1 className="text-4xl font-semibold mb-2">{job.title}</h1>
-        <p className="text-xl text-gray-700 mb-6">{job.company_name}</p>
-
+      <div className="break-all m-auto bg-white p-10 max-h-180 overflow-y-auto">
+        <div className="flex lg:flex-row md:flex-col items-start justify-between lg:gap-12 md:gap-0 md:mb-8">
+          <div className="flex flex-col">
+            <h1 className="text-wrap text-4xl font-semibold mb-2">
+              {job.title}
+            </h1>
+            <p className="text-xl text-gray-700 mb-6">{job.company_name}</p>
+          </div>
+          <a
+            href={job.job_url}
+            target="_blank"
+            className="text-center w-50 bg-[#4C73F2] text-white py-3 px-10 rounded-full text-lg hover:opacity-90 transition"
+          >
+            Apply Now
+          </a>
+        </div>
         <div className="flex flex-col gap-1 text-gray-600 text-sm mb-10">
           <p>{job.location}</p>
           <p>{job.job_type}</p>
@@ -66,15 +78,11 @@ export default function JobDetail({ id }: { id: string }) {
           <Markdown>{job.description_md}</Markdown>
         </div>
 
-        {job.job_url && (
-          <a
-            href={job.job_url}
-            target="_blank"
-            className="inline-block mt-12 bg-[#4C73F2] text-white py-3 px-10 rounded-full text-lg hover:opacity-90 transition"
-          >
+        {/* <div className="absolute top-full left-[75%] -translate-y-24 flex justify-center h-12 w-48 inset-0 bg-[#4C73F2] text-white py-3 px-10 rounded-full text-lg hover:opacity-90 transition">
+          <a href={job.job_url} target="_blank" className="">
             Apply Now
           </a>
-        )}
+        </div> */}
       </div>
     </motion.div>
   );
