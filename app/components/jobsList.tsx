@@ -57,6 +57,8 @@ function JobsListContent() {
     const { data, error } = await supabase
       .from("jobs")
       .select("*")
+      .eq("seniority", "intern")
+      .gt("ux_score", 70)
       .limit(9)
       .range(rangeLower, rangeUpper);
 
