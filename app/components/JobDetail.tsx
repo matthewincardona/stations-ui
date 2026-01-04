@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { getJobById } from "../lib/db/getJobById";
 import JobDetailSkeleton from "@/app/components/JobDetailSkeleton";
+import Markdown from "react-markdown";
 
 interface Job {
   id: string;
@@ -62,9 +63,7 @@ export default function JobDetail({ id }: { id: string }) {
 
         <div>
           <h2 className="text-2xl font-medium mb-4">Job Description</h2>
-          <p className="whitespace-pre-wrap leading-relaxed text-[1.05rem] text-gray-800">
-            {job.description_md}
-          </p>
+          <Markdown>{job.description_md}</Markdown>
         </div>
 
         {job.job_url && (

@@ -1,8 +1,11 @@
 import { getJobById } from "../../lib/db/getJobById";
 import { motion } from "framer-motion";
+import Markdown from "react-markdown";
 
 export default async function JobDetail({ id }: { id: string }) {
   const job = await getJobById(id);
+  console.log(job.description_md);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -23,9 +26,7 @@ export default async function JobDetail({ id }: { id: string }) {
 
         <section>
           <h2 className="text-2xl font-semibold mb-4">Job Description</h2>
-          <p className="whitespace-pre-wrap text-[1.1rem] leading-[1.75] tracking-wide text-[#333]">
-            {job.description_md}
-          </p>
+          <Markdown>{job.description_md}</Markdown>
         </section>
 
         {job.job_url && (
