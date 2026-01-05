@@ -4,7 +4,6 @@ import Markdown from "react-markdown";
 
 export default async function JobDetail({ id }: { id: string }) {
   const job = await getJobById(id);
-  console.log(job.description_md);
 
   return (
     <motion.div
