@@ -2,10 +2,10 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { getJobById } from "../lib/db/getJobById";
+import { getJobById } from "@/app/lib/db/getJobById";
 import JobDetailSkeleton from "@/app/components/JobDetailSkeleton";
 import Markdown from "react-markdown";
-import { timeAgo } from "../lib/utils/dateUtils";
+import { timeAgo } from "@/app/lib/utils/dateUtils";
 
 interface Job {
   id: string;
