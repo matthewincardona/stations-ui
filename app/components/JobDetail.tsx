@@ -5,6 +5,9 @@ import { useEffect, useState } from "react";
 import { getJobById } from "@/app/lib/db/getJobById";
 import JobDetailSkeleton from "@/app/components/JobDetailSkeleton";
 import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import remarkBreaks from "remark-breaks";
+import rehypeRaw from "rehype-raw";
 import { timeAgo } from "@/app/lib/utils/dateUtils";
 
 interface Job {
@@ -74,9 +77,14 @@ export default function JobDetail({ id }: { id: string }) {
           <p>Posted: {timeAgo(job.date_posted)}</p>
         </div>
 
-        <div>
-          <h2 className="text-2xl font-medium mb-4">Job Description</h2>
-          <Markdown>{job.description_md}</Markdown>
+        <div className="prose prose-sm max-w-none">
+          <h2>Job Description</h2>
+          <Markdown
+            remarkPlugins={[remarkGfm, remarkBreaks]}
+            rehypePlugins={[rehypeRaw]}
+          >
+            {job.description_md}
+          </Markdown>
         </div>
 
         {/* <div className="absolute top-full left-[75%] -translate-y-24 flex justify-center h-12 w-48 inset-0 bg-[#FB7D0E] text-white py-3 px-10 rounded-full text-lg hover:opacity-90 transition">
