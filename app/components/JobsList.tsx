@@ -57,9 +57,10 @@ function JobsListContent() {
     const { data, error } = await supabase
       .from("jobs")
       .select("*")
-      .eq("seniority", "intern")
-      .gt("ux_score", 70)
-      .limit(9)
+      .eq("ux_category", "ux_designer") // Only confirmed UX roles
+      .in("seniority", ["intern", "entry"])
+      .gte("ux_score", 40) // Lowered from 50 since ux_category already filters
+      .order("date_posted", { ascending: false }) // Newest first
       .range(rangeLower, rangeUpper);
 
     if (error) {
