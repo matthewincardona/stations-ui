@@ -8,7 +8,7 @@ interface JobCardProps {
   id: string;
   title: string;
   company: string;
-  postedTime: string;
+  date_posted: string;
   location: string;
   workType: string;
   jobUrl: string;
@@ -18,7 +18,7 @@ export default function JobCard({
   id,
   title,
   company,
-  postedTime,
+  date_posted,
   location,
   workType,
   jobUrl,
@@ -41,7 +41,7 @@ export default function JobCard({
         {/* Posted time badge */}
         <div className="mb-3">
           <span className="inline-block text-[0.7rem] text-[#FB7D0E] bg-[#e9eeff] font-medium px-2 py-0.5 rounded-full">
-            {postedTime}
+            {date_posted}
           </span>
         </div>
 

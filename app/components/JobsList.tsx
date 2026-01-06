@@ -1,6 +1,7 @@
 "use client";
 
 import JobCard from "./JobCard";
+import { timeAgo } from "../lib/utils/dateUtils";
 // import SkeletonLoader from "./animatedSkeletonLoader";
 import SVGLoader from "./SkeletonLoader";
 import { useEffect, useState, Suspense } from "react";
@@ -17,9 +18,21 @@ interface Job {
   title: string;
   company_name: string;
   location: string;
-  postedTime: string;
+  date_posted: string;
   job_type: string;
   job_url: string;
+}
+
+function parseSupabaseDate(dateString?: string) {
+  if (!dateString) return null;
+
+  // Split off the timezone part
+  const [datetimePart] = dateString.split("+");
+  // Replace space with T to make it ISO 8601 compatible
+  const isoString = datetimePart.replace(" ", "T") + "Z";
+
+  const date = new Date(isoString);
+  return isNaN(date.getTime()) ? null : date;
 }
 
 function JobsListContent() {
@@ -86,7 +99,7 @@ function JobsListContent() {
                 id,
                 title,
                 company_name,
-                postedTime,
+                date_posted,
                 location,
                 job_type,
                 job_url,
@@ -96,7 +109,7 @@ function JobsListContent() {
                   key={id}
                   title={title}
                   company={company_name}
-                  postedTime="24 hours ago"
+                  date_posted={timeAgo(date_posted)}
                   location={location}
                   workType="Hybrid"
                   jobUrl={job_url}

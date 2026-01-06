@@ -5,13 +5,14 @@ import { useEffect, useState } from "react";
 import { getJobById } from "../lib/db/getJobById";
 import JobDetailSkeleton from "@/app/components/JobDetailSkeleton";
 import Markdown from "react-markdown";
+import { timeAgo } from "../lib/utils/dateUtils";
 
 interface Job {
   id: string;
   title: string;
   company_name: string;
   location: string;
-  posted_at: string;
+  date_posted: string;
   job_type: string;
   job_url: string;
   description_md: string;
@@ -70,7 +71,7 @@ export default function JobDetail({ id }: { id: string }) {
         <div className="flex flex-col gap-1 text-gray-600 text-sm mb-10">
           <p>{job.location}</p>
           <p>{job.job_type}</p>
-          <p>Posted: {job.posted_at}</p>
+          <p>Posted: {timeAgo(job.date_posted)}</p>
         </div>
 
         <div>
