@@ -16,7 +16,7 @@ interface Job {
   title: string;
   company_name: string;
   location: string;
-  postedTime: string;
+  date_posted: string;
   workType: string;
   job_url: string;
 }
@@ -81,7 +81,7 @@ function JobsListContent() {
                 id,
                 title,
                 company_name,
-                postedTime,
+                date_posted,
                 location,
                 workType,
                 job_url,
@@ -91,7 +91,7 @@ function JobsListContent() {
                   key={id}
                   title={title}
                   company={company_name}
-                  postedTime="24 hours ago"
+                  date_posted="24 hours ago"
                   location={location}
                   workType="Hybrid"
                   jobUrl={job_url}
