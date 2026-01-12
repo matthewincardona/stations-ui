@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Entry-Level Job Board",
+  title: "Entry Level Job Board",
   description: "Entry Level Job Board",
 };
 
