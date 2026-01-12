@@ -22,7 +22,7 @@ export default function Home() {
       </div>
       <a
         href="https://forms.gle/pSUDzXGWXQimAgce6"
-        className="text-white py-2 px-4 rounded-sm bg-[#4166e0] hover:opacity-80 transition-all fixed left-[calc(99%-100px)] bottom-5"
+        className="text-white py-2 px-4 rounded-sm bg-[#4166e0] hover:opacity-80 transition-all fixed right-[calc(99%-110px)] bottom-5"
         target="_blank"
       >
         Feedback
