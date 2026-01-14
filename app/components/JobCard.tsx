@@ -34,7 +34,6 @@ export default function JobCard({
           rounded-3xl bg-[#fbfbfb] border-gray-200 border
           transition-all duration-200 ease-out
           hover:shadow-lg hover:border-[#FB7D0E]
-          hover:-translate-y-0.5
           p-8 h-46 flex flex-col justify-between
         "
       >
