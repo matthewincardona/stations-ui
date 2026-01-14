@@ -86,7 +86,7 @@ function JobsListContent() {
   }
 
   return (
-    <div className="mt-6 max-w-5xl m-auto">
+    <div className="mt-6 max-w-4xl m-auto">
       {fetchError && <p className="text-red-600 mb-4">{fetchError}</p>}
       <div className="flex flex-col gap-4">
         {/* {loading && Array.from({ length: 9 }, (_, i) => <SVGLoader key={i} />)} */}

@@ -31,11 +31,11 @@ export default function JobCard({
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.25, ease: "easeOut" }}
         className="
-          bg-white rounded-2xl border border-[#E5E5E5]
+          rounded-3xl bg-[#fbfbfb] border-gray-200 border
           transition-all duration-200 ease-out
           hover:shadow-lg hover:border-[#FB7D0E]
           hover:-translate-y-0.5
-          p-5 h-42 flex flex-col justify-between
+          p-8 h-46 flex flex-col justify-between
         "
       >
         <div className="flex justify-between w-full">
@@ -50,19 +50,17 @@ export default function JobCard({
           </div>
 
           {/* Posted time badge */}
-          <div className="flex justify-center items-center h-8 w-24 text-sm text-[#FB7D0E] bg-[#f1f4fc] font-medium rounded-full">
-            {date_posted}
-          </div>
+          <p className="text-sm">{date_posted}</p>
         </div>
 
         {/* Tags */}
         <div className="flex flex-wrap gap-4 text-sm">
-          <span className="flex gap-1.5 items-center rounded-full bg-[#F7F7F7] border border-[#DDD] py-1 px-2">
+          <span className="flex gap-1.5 items-center rounded-full bg-gray-100 py-2 px-3">
             <MapPin className="w-3.5 h-3.5" />
             {location}
           </span>
 
-          <span className="flex gap-1.5 items-center rounded-full bg-[#F7F7F7] border border-[#DDD] py-1 px-2">
+          <span className="flex gap-1.5 items-center rounded-full bg-gray-100 py-2 px-3">
             <Briefcase className="w-3.5 h-3.5" />
             {workType}
           </span>
