@@ -35,29 +35,28 @@ export default function JobCard({
           transition-all duration-200 ease-out
           hover:shadow-lg hover:border-[#FB7D0E]
           hover:-translate-y-0.5
-          p-5 h-full flex flex-col justify-between
+          p-5 h-42 flex flex-col justify-between
         "
       >
-        {/* Posted time badge */}
-        <div className="mb-3">
-          <span className="inline-block text-[0.7rem] text-[#FB7D0E] bg-[#e9eeff] font-medium px-2 py-0.5 rounded-full">
+        <div className="flex justify-between w-full">
+          <div className="flex flex-col gap-2">
+            {/* Title */}
+            <h3 className="font-semibold text-xl leading-snug line-clamp-2">
+              {title}
+            </h3>
+
+            {/* Company */}
+            <p className="text-[#4A5565] text-base truncate">{company}</p>
+          </div>
+
+          {/* Posted time badge */}
+          <div className="flex justify-center items-center h-8 w-24 text-sm text-[#FB7D0E] bg-[#f1f4fc] font-medium rounded-full">
             {date_posted}
-          </span>
-        </div>
-
-        {/* Title */}
-        <h3 className="font-semibold text-[1.15rem] leading-snug line-clamp-2">
-          {title}
-        </h3>
-
-        {/* Company */}
-        <div className="flex items-center gap-2 mt-2">
-          <Building2 className="text-[#4A5565] w-4 h-4" />
-          <p className="text-[#4A5565] text-sm truncate">{company}</p>
+          </div>
         </div>
 
         {/* Tags */}
-        <div className="flex flex-wrap gap-2 mt-4 text-xs">
+        <div className="flex flex-wrap gap-4 text-sm">
           <span className="flex gap-1.5 items-center rounded-full bg-[#F7F7F7] border border-[#DDD] py-1 px-2">
             <MapPin className="w-3.5 h-3.5" />
             {location}

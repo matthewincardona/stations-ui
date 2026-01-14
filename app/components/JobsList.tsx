@@ -21,6 +21,7 @@ interface Job {
   date_posted: string;
   job_type: string;
   job_url: string;
+  company_logo: string;
 }
 
 function parseSupabaseDate(dateString?: string) {
@@ -85,9 +86,9 @@ function JobsListContent() {
   }
 
   return (
-    <div className="mt-6 bg-[#F5F5F5] p-4 max-w-7xl m-auto rounded-xl">
+    <div className="mt-6 max-w-5xl m-auto">
       {fetchError && <p className="text-red-600 mb-4">{fetchError}</p>}
-      <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:grid-rows-[repeat(2,minmax(160px,auto))] md:grid-rows-[repeat(3,minmax(208px,auto))] gap-4">
+      <div className="flex flex-col gap-4">
         {/* {loading && Array.from({ length: 9 }, (_, i) => <SVGLoader key={i} />)} */}
         {loading
           ? Array.from({ length: 9 }, (_, i) => <SVGLoader key={i} />)
@@ -100,6 +101,7 @@ function JobsListContent() {
                 location,
                 job_type,
                 job_url,
+                company_logo,
               }) => (
                 <JobCard
                   id={id}
@@ -110,6 +112,7 @@ function JobsListContent() {
                   location={location}
                   workType="Hybrid"
                   jobUrl={job_url}
+                  company_logo={company_logo}
                 />
               )
             )}
