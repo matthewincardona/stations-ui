@@ -10,10 +10,7 @@ export default function Home() {
         <h1 className="text-center text-4xl font-semibold mb-5">
           Find your next <span className="text-[#FB7D0E]">entry level</span> job
           or
-          <span className="text-[#9e8a8a] hover:text-[#FB7D0E] cursor-pointer">
-            {" "}
-            internship
-          </span>
+          <span className="text-[#FB7D0E]"> internship</span>
         </h1>
         <Filter />
         <div className="mt-12">
