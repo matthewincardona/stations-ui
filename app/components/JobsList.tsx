@@ -5,7 +5,7 @@ import { timeAgo } from "../lib/utils/dateUtils";
 // import SkeletonLoader from "./animatedSkeletonLoader";
 import SVGLoader from "./SkeletonLoader";
 import { useEffect, useState, Suspense } from "react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { createClient } from "@supabase/supabase-js";
 import InfiniteScroll from "react-infinite-scroll-component";
 
@@ -48,21 +48,30 @@ function JobsListContent() {
   const [totalJobs, setTotalJobs] = useState(0);
   const [openJobId, setOpenJobId] = useState<string | null>(null);
 
+  const searchParams = useSearchParams();
+  const level = searchParams.get("level") || "entry";
+  const title = searchParams.get("title") || "ux_designer";
+
   const toggleOpen = (id: string) => {
     setOpenJobId((prev) => (prev === id ? null : id));
   };
 
-  const fetchData = async (page: number) => {
+  const fetchData = async (page: number, level: string, title: string) => {
     try {
+      setLoading(true);
       const limit = 10;
       const from = (page - 1) * limit;
       const to = from + limit - 1;
 
-      const { data, count, error } = await supabase
+      let query = supabase
         .from("jobs")
         .select("*", { count: "exact" })
-        .order("date_posted", { ascending: false }) // Newest first
+        .gt(`role_scores->>${title}`, "0.7")
+        .gt(`seniority_scores->>${level}`, "0.7")
+        .order("date_posted", { ascending: false })
         .range(from, to);
+
+      const { data, count, error } = await query;
 
       if (error) {
         console.error("Error fetching jobs:", error);
@@ -87,23 +96,15 @@ function JobsListContent() {
   };
 
   useEffect(() => {
-    let subscribed = true;
-    (async () => {
-      if (subscribed) {
-        await fetchData(1);
-      }
-    })();
-    return () => {
-      subscribed = false;
-    };
-  }, []);
+    setJobs([]);
+    setPage(1);
+    fetchData(1, level, title);
+  }, [level, title]);
 
   const handleLoadMoreData = () => {
-    setPage((prevPage) => {
-      const nextPage = prevPage + 1;
-      fetchData(nextPage);
-      return nextPage;
-    });
+    const nextPage = page + 1;
+    setPage(nextPage);
+    fetchData(nextPage, level, title);
   };
 
   return (
@@ -115,13 +116,13 @@ function JobsListContent() {
         hasMore={totalJobs > jobs.length}
         loader={<h4>Loading...</h4>}
         endMessage={
-          <p style={{ textAlign: "center" }}>
+          <p className="text-center my-16">
             <b>Yay! You have seen it all</b>
           </p>
         }
       >
         <div className="flex flex-col gap-4">
-          {loading
+          {loading && jobs.length === 0
             ? Array.from({ length: 9 }, (_, i) => <SVGLoader key={i} />)
             : jobs.map(
                 (
