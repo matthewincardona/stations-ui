@@ -11,7 +11,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!
+  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!,
 );
 
 interface Job {
@@ -20,20 +20,23 @@ interface Job {
   company_name: string;
   location: string;
   date_posted: string;
-  job_type: string;
   job_url: string;
+  job_url_direct: string;
   company_logo: string;
+  skills: string;
+  summary: string;
 }
 
-function parseSupabaseDate(dateString?: string) {
+export function parseSupabaseDate(dateString?: string) {
   if (!dateString) return null;
 
-  // Split off the timezone part
-  const [datetimePart] = dateString.split("+");
-  // Replace space with T to make it ISO 8601 compatible
-  const isoString = datetimePart.replace(" ", "T") + "Z";
+  // Step 1: Replace the space with T
+  let iso = dateString.replace(" ", "T");
 
-  const date = new Date(isoString);
+  // Step 2: Ensure timezone format becomes +00:00
+  iso = iso.replace(/\+(\d{2})(?!:)/, "+$1:00");
+
+  const date = new Date(iso);
   return isNaN(date.getTime()) ? null : date;
 }
 
@@ -43,6 +46,11 @@ function JobsListContent() {
   const [fetchError, setFetchError] = useState<string | null>(null);
   const [page, setPage] = useState(1);
   const [totalJobs, setTotalJobs] = useState(0);
+  const [openJobId, setOpenJobId] = useState<string | null>(null);
+
+  const toggleOpen = (id: string) => {
+    setOpenJobId((prev) => (prev === id ? null : id));
+  };
 
   const fetchData = async (page: number) => {
     try {
@@ -116,26 +124,35 @@ function JobsListContent() {
           {loading
             ? Array.from({ length: 9 }, (_, i) => <SVGLoader key={i} />)
             : jobs.map(
-                ({
-                  id,
-                  title,
-                  company_name,
-                  date_posted,
-                  location,
-                  job_type,
-                  job_url,
-                }) => (
+                (
+                  {
+                    id,
+                    title,
+                    company_name,
+                    date_posted,
+                    location,
+                    job_url,
+                    job_url_direct,
+                    skills,
+                    summary,
+                  },
+                  index,
+                ) => (
                   <JobCard
                     id={id}
-                    key={id}
+                    key={id + index}
                     title={title}
                     company={company_name}
-                    date_posted={timeAgo(date_posted)}
+                    date_posted={timeAgo(parseSupabaseDate(date_posted))}
                     location={location}
-                    workType="Hybrid"
-                    jobUrl={job_url}
+                    jobUrl={job_url ? job_url : job_url_direct}
+                    workType={""}
+                    skills={skills}
+                    summary={summary}
+                    expanded={openJobId === id}
+                    onToggle={() => toggleOpen(id)}
                   />
-                )
+                ),
               )}
         </div>
       </InfiniteScroll>
