@@ -74,7 +74,7 @@ function JobsListContent() {
 
   return (
     <div className="mt-6 bg-[#F5F5F5] p-4 max-w-7xl m-auto rounded-xl">
-      {fetchError && <p className="text-red-600 mb-4">{fetchError}</p>}
+      {/* {fetchError && <p className="text-red-600 mb-4">{fetchError}</p>}
       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:grid-rows-[repeat(2,minmax(160px,auto))] md:grid-rows-[repeat(3,minmax(208px,auto))] gap-4">
         {loading
           ? Array.from({ length: 9 }, (_, i) => <SVGLoader key={i} />)
@@ -123,7 +123,7 @@ function JobsListContent() {
         >
           Next
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }
