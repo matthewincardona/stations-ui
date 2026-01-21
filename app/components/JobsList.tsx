@@ -18,17 +18,18 @@ function JobsListContent() {
   const [openJobId, setOpenJobId] = useState<string | null>(null);
 
   const searchParams = useSearchParams();
-  const level = searchParams.get("level") || "entry";
-  const title = searchParams.get("title") || "ux_designer";
+  const level = searchParams.get("level") || "";
+  const title = searchParams.get("title") || "";
+  const location = searchParams.get("location") || "";
 
   const toggleOpen = (id: string) => {
     setOpenJobId((prev) => (prev === id ? null : id));
   };
 
-  async function loadPage(pageNum: number) {
+  async function loadPage(pageNum: number, level: string, title: string, location: string) {
     try {
       setLoading(true);
-      const result = await fetchJobs(pageNum, level, title);
+      const result = await fetchJobs(pageNum, level, title, location);
 
       if (pageNum === 1) {
         setJobs(result.data);
@@ -48,13 +49,13 @@ function JobsListContent() {
   useEffect(() => {
     setJobs([]);
     setPage(1);
-    loadPage(1);
-  }, [level, title]);
+    loadPage(1, level, title, location);
+  }, [level, title, location]);
 
   const handleLoadMoreData = () => {
     const nextPage = page + 1;
     setPage(nextPage);
-    loadPage(nextPage);
+    loadPage(nextPage, level, title, location);
   };
 
   return (
