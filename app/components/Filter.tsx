@@ -179,7 +179,7 @@ function FilterContent() {
 
   return (
     <div>
-      <div className="max-w-400 mx-auto mt-2 flex items-center justify-center">
+      <div className="max-w-4xl mx-auto mt-2 flex items-center justify-start">
         <div className="flex flex-wrap items-center gap-4">
           <MultiSelect
             options={jobLevels}

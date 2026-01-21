@@ -7,7 +7,7 @@ export default function Home() {
     <div>
       <Navbar />
       <div className="p-3 mt-8 lg:mt-20">
-        <h1 className="text-left lg:text-center text-4xl font-semibold mb-5">
+        <h1 className="max-w-4xl mx-auto mt-2 flex items-center justify-start gap-2 text-left text-4xl font-semibold mb-5">
           Find your next <span className="text-[#FB7D0E]">entry level</span> job
           or
           <span className="text-[#FB7D0E]"> internship</span>
