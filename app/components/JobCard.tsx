@@ -66,11 +66,13 @@ export default function JobCard({
           </div>
         </div>
 
-        <ChevronDown
-          className={`w-5 h-5 transition-transform duration-200 ${
-            expanded ? "rotate-180" : ""
-          }`}
-        />
+        <div className="w-5 h-5">
+          <ChevronDown
+            className={`w-5 h-5 transition-transform duration-200 ${
+              expanded ? "rotate-180" : ""
+            }`}
+          />
+        </div>
       </button>
 
       <motion.div
