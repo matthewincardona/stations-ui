@@ -38,6 +38,7 @@ export async function fetchJobs(page: number, level: string, title: string) {
     .select("*", { count: "exact" })
     .gt(`role_scores->>${title}`, "0.7")
     .gt(`seniority_scores->>${level}`, "0.7")
+    .lt("seniority_scores->>mid_and_above", "0.6")
     .order("date_posted", { ascending: false })
     .range(from, to);
 
