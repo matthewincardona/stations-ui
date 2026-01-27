@@ -14,6 +14,8 @@ const jobTitles = [
   { label: "UX Designer", value: "ux_designer" },
   { label: "Frontend Developer", value: "frontend_developer" },
   { label: "Software Engineer", value: "software_engineer" },
+  { label: "Mobile Developer", value: "mobile_developer" },
+  { label: "Graphic Designer", value: "graphic_designer" },
 ];
 
 const locations = [
