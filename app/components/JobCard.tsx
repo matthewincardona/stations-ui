@@ -42,7 +42,7 @@ export default function JobCard({
       initial={{ opacity: 0, y: 0 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.25, ease: "easeOut" }}
-      className="
+      className="relative 
       rounded-3xl bg-[#fbfbfb] border-gray-200 border
       transition-all duration-200 ease-out
       hover:shadow-lg hover:border-[#FB7D0E]
@@ -60,18 +60,10 @@ export default function JobCard({
           <p className="text-[#4A5565] text-base truncate">{company}</p>
 
           <div className="flex text-sm gap-4 items-center">
-            {isNew && (
-              <motion.span
-                animate={{ opacity: [1, 0.5, 1] }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-                className="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded border border-green-400"
-              >
+            {!isNew && (
+              <span className="absolute -top-2.5 left-5 bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded border border-green-400">
                 New
-              </motion.span>
+              </span>
             )}
             <p>{date_posted}</p>
             <span className="flex gap-1.5 items-center">
