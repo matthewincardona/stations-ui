@@ -155,7 +155,6 @@ function JobsListContent() {
                           summary={summary}
                           expanded={openJobId === id}
                           onToggle={() => toggleOpen(id)}
-                          isNew={groupTitle === "Posted Today"}
                         />
                       ),
                     )}
