@@ -68,7 +68,7 @@ const MultiSelect = ({
   };
 
   return (
-    <div className="relative inline-block min-w-52" ref={dropdownRef}>
+    <div className="relative z-50 inline-block min-w-52" ref={dropdownRef}>
       <button
         type="button"
         className="flex gap-2 items-center justify-between w-full rounded-lg bg-[#4166e0] text-white px-4 py-2 text-base cursor-pointer transition-transform duration-300 ease-in-out"
