@@ -255,7 +255,7 @@ function FilterContent() {
             </button>
           </div>
         ))}
-        {totalSelected >= 3 && (
+        {totalSelected >= 2 && (
           <button
             onClick={clearAllFilters}
             className="text-sm text-gray-500 hover:text-gray-700"
