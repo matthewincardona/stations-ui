@@ -73,8 +73,7 @@ function JobsListContent() {
   thisMonth.setDate(thisMonth.getDate() - 30);
 
   const groups: Record<string, Job[]> = {
-    "Posted Today": [],
-    Yesterday: [],
+    Latest: [],
     "This Week": [],
     "This Month": [],
     Older: [],
@@ -86,20 +85,20 @@ function JobsListContent() {
       groups["Older"].push(job);
       return;
     }
-    if (date >= today) groups["Posted Today"].push(job);
-    else if (date >= yesterday) groups["Yesterday"].push(job);
-    else if (date >= thisWeek) groups["This Week"].push(job);
-    else if (date >= thisMonth) groups["This Month"].push(job);
+
+    const localDate = new Date(
+      date.getUTCFullYear(),
+      date.getUTCMonth(),
+      date.getUTCDate(),
+    );
+
+    if (localDate >= yesterday) groups["Latest"].push(job);
+    else if (localDate >= thisWeek) groups["This Week"].push(job);
+    else if (localDate >= thisMonth) groups["This Month"].push(job);
     else groups["Older"].push(job);
   });
 
-  const groupOrder = [
-    "Posted Today",
-    "Yesterday",
-    "This Week",
-    "This Month",
-    "Older",
-  ];
+  const groupOrder = ["Latest", "This Week", "This Month", "Older"];
 
   return (
     <div className="mt-6 max-w-4xl m-auto">
