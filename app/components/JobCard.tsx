@@ -15,6 +15,7 @@ interface JobCardProps {
   summary: string;
   expanded: boolean;
   onToggle: () => void;
+  isNew?: boolean;
 }
 
 export default function JobCard({
@@ -30,6 +31,7 @@ export default function JobCard({
   summary,
   expanded,
   onToggle,
+  isNew,
 }: JobCardProps) {
   const formattedSkills = Array.isArray(skills) ? skills.join(", ") : skills;
 
@@ -57,7 +59,20 @@ export default function JobCard({
 
           <p className="text-[#4A5565] text-base truncate">{company}</p>
 
-          <div className="flex text-sm gap-4">
+          <div className="flex text-sm gap-4 items-center">
+            {isNew && (
+              <motion.span
+                animate={{ opacity: [1, 0.5, 1] }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded border border-green-400"
+              >
+                New
+              </motion.span>
+            )}
             <p>{date_posted}</p>
             <span className="flex gap-1.5 items-center">
               <MapPin className="w-3.5 h-3.5" />

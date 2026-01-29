@@ -26,7 +26,12 @@ function JobsListContent() {
     setOpenJobId((prev) => (prev === id ? null : id));
   };
 
-  async function loadPage(pageNum: number, level: string, title: string, location: string) {
+  async function loadPage(
+    pageNum: number,
+    level: string,
+    title: string,
+    location: string,
+  ) {
     try {
       setLoading(true);
       const result = await fetchJobs(pageNum, level, title, location);
@@ -58,6 +63,44 @@ function JobsListContent() {
     loadPage(nextPage, level, title, location);
   };
 
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const yesterday = new Date(today);
+  yesterday.setDate(yesterday.getDate() - 1);
+  const thisWeek = new Date(today);
+  thisWeek.setDate(thisWeek.getDate() - 7);
+  const thisMonth = new Date(today);
+  thisMonth.setDate(thisMonth.getDate() - 30);
+
+  const groups: Record<string, Job[]> = {
+    "Posted Today": [],
+    Yesterday: [],
+    "This Week": [],
+    "This Month": [],
+    Older: [],
+  };
+
+  jobs.forEach((job) => {
+    const date = parseSupabaseDate(job.date_posted);
+    if (!date) {
+      groups["Older"].push(job);
+      return;
+    }
+    if (date >= today) groups["Posted Today"].push(job);
+    else if (date >= yesterday) groups["Yesterday"].push(job);
+    else if (date >= thisWeek) groups["This Week"].push(job);
+    else if (date >= thisMonth) groups["This Month"].push(job);
+    else groups["Older"].push(job);
+  });
+
+  const groupOrder = [
+    "Posted Today",
+    "Yesterday",
+    "This Week",
+    "This Month",
+    "Older",
+  ];
+
   return (
     <div className="mt-6 max-w-4xl m-auto">
       {fetchError && <p className="text-red-600 mb-4">{fetchError}</p>}
@@ -75,37 +118,50 @@ function JobsListContent() {
         <div className="flex flex-col gap-4">
           {loading && jobs.length === 0
             ? Array.from({ length: 9 }, (_, i) => <SVGLoader key={i} />)
-            : jobs.map(
-                (
-                  {
-                    id,
-                    title,
-                    company_name,
-                    date_posted,
-                    location,
-                    job_url,
-                    job_url_direct,
-                    skills,
-                    summary,
-                  },
-                  index,
-                ) => (
-                  <JobCard
-                    id={id}
-                    key={id + index}
-                    title={title}
-                    company={company_name}
-                    date_posted={timeAgo(parseSupabaseDate(date_posted))}
-                    location={location}
-                    jobUrl={job_url ? job_url : job_url_direct}
-                    workType={""}
-                    skills={skills}
-                    summary={summary}
-                    expanded={openJobId === id}
-                    onToggle={() => toggleOpen(id)}
-                  />
-                ),
-              )}
+            : groupOrder.map((groupTitle) => {
+                const groupJobs = groups[groupTitle];
+                if (groupJobs.length === 0) return null;
+
+                return (
+                  <div key={groupTitle} className="flex flex-col gap-4">
+                    <h3 className="text-lg font-semibold text-gray-500 mt-4 sticky top-0 bg-white z-10 py-2">
+                      {groupTitle}
+                    </h3>
+                    {groupJobs.map(
+                      (
+                        {
+                          id,
+                          title,
+                          company_name,
+                          date_posted,
+                          location,
+                          job_url,
+                          job_url_direct,
+                          skills,
+                          summary,
+                        },
+                        index,
+                      ) => (
+                        <JobCard
+                          id={id}
+                          key={id + index}
+                          title={title}
+                          company={company_name}
+                          date_posted={timeAgo(parseSupabaseDate(date_posted))}
+                          location={location}
+                          jobUrl={job_url ? job_url : job_url_direct}
+                          workType={""}
+                          skills={skills}
+                          summary={summary}
+                          expanded={openJobId === id}
+                          onToggle={() => toggleOpen(id)}
+                          isNew={groupTitle === "Posted Today"}
+                        />
+                      ),
+                    )}
+                  </div>
+                );
+              })}
         </div>
       </InfiniteScroll>
     </div>
