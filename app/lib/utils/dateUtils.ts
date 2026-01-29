@@ -21,7 +21,7 @@ export function timeAgo(rawDate: Date | string | null): string {
   }
 
   const days = Math.floor(seconds / 86400);
-  if (days === 1) return "yesterday";
+  if (days === 1) return "Yesterday";
   if (days < 30) return `${days} days ago`;
 
   const months = Math.floor(days / 30);
