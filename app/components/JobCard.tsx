@@ -1,4 +1,4 @@
-import { ChevronDown, MapPin } from "lucide-react";
+import { ChevronDown, MapPin, Code } from "lucide-react";
 import { useRef } from "react";
 import { motion } from "framer-motion";
 
@@ -34,6 +34,30 @@ export default function JobCard({
   const formattedSkills = Array.isArray(skills) ? skills.join(", ") : skills;
 
   const contentRef = useRef<HTMLDivElement>(null);
+
+  function QuickOverview({
+    summary,
+    formattedSkills,
+  }: {
+    summary: string;
+    formattedSkills: string;
+  }) {
+    if (summary && formattedSkills) {
+      return (
+        <div>
+          <p>
+            <strong>Quick Overview</strong>
+          </p>
+          <p>{summary}</p>
+          <div className="mt-4 flex gap-2 items-center">
+            <Code className="w-4.5 h-4.5" />
+            <p>Looking for skills in {formattedSkills}</p>
+          </div>
+        </div>
+      );
+    }
+    return <p>No overview available ;(</p>;
+  }
 
   return (
     <motion.div
@@ -89,19 +113,7 @@ export default function JobCard({
           transition={{ duration: 0.25, ease: "easeOut" }}
           className="p-8 pt-0 text-gray-700 leading-relaxed space-y-1"
         >
-          {summary && (
-            <div>
-              <p>
-                <strong>Quick Overview</strong>
-              </p>
-              <p>{summary}</p>
-            </div>
-          )}
-
-          {formattedSkills && (
-            <p className="mt-4">Looking for skills in {formattedSkills}</p>
-          )}
-
+          <QuickOverview summary={summary} formattedSkills={formattedSkills} />
           <a
             href={jobUrl}
             target="_blank"
