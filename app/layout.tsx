@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Entry Level Job Board",
-  description: "Entry Level Job Board",
+  title: "Early Career Job Board",
+  description: "Early Career Job Board",
 };
 
 export default function RootLayout({
