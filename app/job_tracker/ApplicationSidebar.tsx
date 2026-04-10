@@ -322,17 +322,21 @@ export function ApplicationSidebar({
                                 {...props}
                               />
                             ),
-                            code: ({ node, inline, ...props }) =>
-                              inline ? (
+                            code: ({ node, className, children, ...props }) =>
+                              !className ? (
                                 <code
                                   className="bg-gray-200 px-2 py-0.5 rounded text-sm font-mono text-gray-800"
                                   {...props}
-                                />
+                                >
+                                  {children}
+                                </code>
                               ) : (
                                 <code
                                   className="bg-gray-200 px-2 py-1 rounded text-sm font-mono text-gray-800 block overflow-x-auto my-2"
                                   {...props}
-                                />
+                                >
+                                  {children}
+                                </code>
                               ),
                             pre: ({ node, ...props }) => (
                               <pre
