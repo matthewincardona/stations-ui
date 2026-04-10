@@ -1,7 +1,6 @@
 import { columns } from "./columns";
-import { DataTable } from "./data-table";
 import { fetchApplications } from "@/app/lib/db/applications";
-import { JobTrackerClient } from "./JobTrackerClient";
+import { JobTrackerClient } from "@/app/job_tracker/JobTrackerClient";
 
 async function getApplications() {
   try {
