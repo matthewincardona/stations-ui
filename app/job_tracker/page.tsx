@@ -1,3 +1,4 @@
+import Navbar from "@/app/components/Navbar";
 import { columns } from "./columns";
 import { fetchApplications } from "@/app/lib/db/applications";
 import { JobTrackerClient } from "@/app/job_tracker/JobTrackerClient";
@@ -16,8 +17,11 @@ export default async function JobTrackerPage() {
   const initialData = await getApplications();
 
   return (
-    <div className="container mx-auto py-10">
-      <JobTrackerClient columns={columns} initialData={initialData} />
-    </div>
+    <>
+      <Navbar />
+      <div className="container mx-auto py-10">
+        <JobTrackerClient columns={columns} initialData={initialData} />
+      </div>
+    </>
   );
 }
