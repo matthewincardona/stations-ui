@@ -10,12 +10,14 @@ interface CreateApplicationModalProps {
   isOpen: boolean;
   onClose: () => void;
   onCreate: (application: JobApplication) => void;
+  userId?: string;
 }
 
 export function CreateApplicationModal({
   isOpen,
   onClose,
   onCreate,
+  userId,
 }: CreateApplicationModalProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -50,6 +52,7 @@ export function CreateApplicationModal({
       }
 
       const application = await createApplication({
+        user_id: userId || null,
         title: formData.title,
         company: formData.company,
         link: formData.link,

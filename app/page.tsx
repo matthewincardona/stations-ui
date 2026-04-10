@@ -1,11 +1,9 @@
-import Navbar from "./components/Navbar";
 import Filter from "./components/Filter";
 import JobsList from "./components/JobsList";
 
 export default function Home() {
   return (
     <>
-      <Navbar />
       <div className="p-3 mt-8 lg:mt-20">
         <h1 className="max-w-4xl mx-auto mt-2 flex items-center justify-start gap-2 text-left lg:text-4xl text-2xl font-semibold mb-5">
           Find your next entry level job or internship

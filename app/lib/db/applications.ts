@@ -7,6 +7,7 @@ const supabase = createClient(
 
 export interface JobApplication {
   id: string;
+  user_id: string | null;
   title: string;
   company: string;
   link: string;
@@ -16,11 +17,19 @@ export interface JobApplication {
   updated_at: string;
 }
 
-export async function fetchApplications(): Promise<JobApplication[]> {
-  const { data, error } = await supabase
+export async function fetchApplications(
+  userId?: string,
+): Promise<JobApplication[]> {
+  let query = supabase
     .from("job_applications")
     .select("*")
     .order("applied_date", { ascending: false });
+
+  if (userId) {
+    query = query.eq("user_id", userId);
+  }
+
+  const { data, error } = await query;
 
   if (error) {
     throw new Error(`Failed to fetch applications: ${error.message}`);
@@ -50,6 +59,7 @@ export async function createApplication(
     .from("job_applications")
     .insert([
       {
+        user_id: application.user_id,
         title: application.title,
         company: application.company,
         link: application.link,
@@ -94,4 +104,25 @@ export async function deleteApplication(id: string): Promise<void> {
   if (error) {
     throw new Error(`Failed to delete application: ${error.message}`);
   }
+}
+
+export async function syncLocalApplicationsToCloud(
+  userId: string,
+  applications: JobApplication[],
+): Promise<JobApplication[]> {
+  const applicationsWithUserId = applications.map((app) => ({
+    ...app,
+    user_id: userId,
+  }));
+
+  const { data, error } = await supabase
+    .from("job_applications")
+    .insert(applicationsWithUserId)
+    .select();
+
+  if (error) {
+    throw new Error(`Failed to sync applications: ${error.message}`);
+  }
+
+  return data || [];
 }
