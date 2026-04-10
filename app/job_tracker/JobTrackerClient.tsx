@@ -39,7 +39,9 @@ export function JobTrackerClient({ columns, userId }: JobTrackerClientProps) {
         try {
           setSyncError(null);
           const synced = await syncToCloud(userId);
-          setDisplayApplications(synced);
+          if (synced) {
+            setDisplayApplications(synced);
+          }
         } catch (err) {
           setSyncError(
             err instanceof Error
@@ -58,11 +60,11 @@ export function JobTrackerClient({ columns, userId }: JobTrackerClientProps) {
     setSidebarOpen(true);
   };
 
-  const handleSaveApplication = (updated: JobApplication) => {
+  const handleSaveApplication = (updated: Application) => {
     const newApps = displayApplications.map((app) =>
       app.id === updated.id ? updated : app,
     );
-    setDisplayApplications(newApps);
+    setDisplayApplications(newApps as Application[]);
     saveApplications(newApps);
     setSelectedApplication(updated);
   };
@@ -73,10 +75,10 @@ export function JobTrackerClient({ columns, userId }: JobTrackerClientProps) {
     saveApplications(newApps);
   };
 
-  const handleCreateApplication = (newApp: JobApplication) => {
-    const newApps = [newApp, ...displayApplications];
+  const handleCreateApplication = (newApp: JobApplication | Application) => {
+    const newApps = [newApp as Application, ...displayApplications];
     setDisplayApplications(newApps);
-    saveApplications(newApps);
+    saveApplications(newApps as Application[]);
   };
 
   if (loading) {
