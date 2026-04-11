@@ -99,15 +99,6 @@ export function JobTrackerClient({ columns, userId }: JobTrackerClientProps) {
         </div>
       )}
 
-      {isLocalOnly && (
-        <div className="bg-blue-50 border border-blue-200 text-blue-800 px-4 py-3 rounded-lg">
-          <p className="text-sm">
-            <strong>Local Mode:</strong> Your applications are saved locally.
-            Sign up to sync them to the cloud.
-          </p>
-        </div>
-      )}
-
       {/* Header with Create Button */}
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold text-gray-900">
