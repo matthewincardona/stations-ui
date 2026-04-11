@@ -74,7 +74,12 @@ export function useApplications(userId?: string) {
 
       if (cloudApps.length === 0 && applications.length > 0) {
         // Sync local apps to cloud
-        const synced = await syncLocalApplicationsToCloud(userId, applications);
+        const synced = await syncLocalApplicationsToCloud(
+          userId,
+          applications.map(
+            (app): JobApplication => ({ ...app, user_id: userId }),
+          ),
+        );
         setApplications(synced);
         setIsLocalOnly(false);
         return synced;
