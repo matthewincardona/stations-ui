@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Trash2, Save } from "lucide-react";
 import { format } from "date-fns";
@@ -33,6 +33,13 @@ export function ApplicationSidebar({
   const [formData, setFormData] = useState<Application | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!isOpen) {
+      setIsEditing(false);
+      setFormData(application);
+    }
+  }, [isOpen, application]);
 
   const handleOpenEdit = () => {
     if (application) {
@@ -97,170 +104,165 @@ export function ApplicationSidebar({
     <AnimatePresence>
       {isOpen && application && (
         <>
-          {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/50 z-40 min-h-screen"
+            className="fixed inset-0 bg-black/50 z-40"
           />
 
-          {/* Sidebar */}
           <motion.div
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed right-0 top-0 h-full w-full max-w-2xl bg-white z-50 overflow-y-auto shadow-lg"
+            className="fixed right-0 top-0 z-50 h-full w-full max-w-2xl overflow-y-auto bg-white shadow-lg"
           >
             <div className="p-8 space-y-8">
-              {/* Header */}
-              <div className="flex items-center justify-between border-b pb-6">
-                <h2 className="text-3xl font-bold text-gray-900">
-                  {isEditing ? "Edit Application" : "Application Details"}
-                </h2>
+              <div className="flex flex-col gap-4 border-b border-gray-200 pb-6 md:flex-row md:items-center md:justify-between">
+                <div>
+                  <h2 className="text-3xl font-semibold text-gray-900">
+                    {isEditing ? "Edit Application" : "Application Details"}
+                  </h2>
+                  <p className="mt-2 text-sm text-gray-600">
+                    View or update anything about this application.
+                  </p>
+                </div>
                 <button
                   onClick={onClose}
-                  className="p-2 hover:bg-gray-100 rounded-lg transition"
+                  className="rounded-3xl border border-gray-200 bg-gray-50 p-3 text-gray-600 transition hover:bg-gray-100"
                 >
                   <X size={24} />
                 </button>
               </div>
 
               {error && (
-                <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg">
+                <div className="rounded-3xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
                   {error}
                 </div>
               )}
 
-              {/* Job Information Section */}
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-gray-900">
-                  Job Information
-                </h3>
-                <div className="space-y-4 bg-gray-50 p-4 rounded-lg border border-gray-200">
-                  {/* Job Title */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Job Title
-                    </label>
-                    {isEditing && formData ? (
-                      <input
-                        type="text"
-                        name="title"
-                        value={formData.title}
-                        onChange={handleInputChange}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
-                      />
-                    ) : (
-                      <p className="text-gray-900 font-medium">
-                        {application.title}
-                      </p>
-                    )}
+              <div className="space-y-8">
+                <section className="rounded-[28px] border border-gray-200 bg-gray-50 p-6 shadow-soft">
+                  <div className="mb-4">
+                    <h3 className="text-lg font-semibold text-gray-900">
+                      Job Information
+                    </h3>
                   </div>
-
-                  {/* Company */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Company
+                  <div className="space-y-5">
+                    <label className="space-y-2 text-sm font-medium text-gray-700">
+                      <span>Job title</span>
+                      {isEditing && formData ? (
+                        <input
+                          type="text"
+                          name="title"
+                          value={formData.title}
+                          onChange={handleInputChange}
+                          className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 shadow-softer outline-none transition focus:border-blue-500 focus:shadow-[0_0_0_3px_rgba(18,151,217,0.18)]"
+                        />
+                      ) : (
+                        <p className="text-gray-900 text-base font-medium">
+                          {application.title}
+                        </p>
+                      )}
                     </label>
-                    {isEditing && formData ? (
-                      <input
-                        type="text"
-                        name="company"
-                        value={formData.company}
-                        onChange={handleInputChange}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
-                      />
-                    ) : (
-                      <p className="text-gray-900 font-medium">
-                        {application.company}
-                      </p>
-                    )}
-                  </div>
-                </div>
-              </div>
 
-              {/* Application Details Section */}
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-gray-900">
-                  Application Details
-                </h3>
-                <div className="space-y-4 bg-blue-50 p-4 rounded-lg border border-blue-200">
-                  {/* Applied Date */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Applied Date
+                    <label className="space-y-2 text-sm font-medium text-gray-700">
+                      <span>Company</span>
+                      {isEditing && formData ? (
+                        <input
+                          type="text"
+                          name="company"
+                          value={formData.company}
+                          onChange={handleInputChange}
+                          className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 shadow-softer outline-none transition focus:border-blue-500 focus:shadow-[0_0_0_3px_rgba(18,151,217,0.18)]"
+                        />
+                      ) : (
+                        <p className="text-gray-900 text-base font-medium">
+                          {application.company}
+                        </p>
+                      )}
                     </label>
-                    {isEditing && formData ? (
-                      <input
-                        type="date"
-                        name="applied_date"
-                        value={formData.applied_date.split("T")[0]}
-                        onChange={(e) => {
-                          setFormData({
-                            ...formData,
-                            applied_date: new Date(e.target.value)
-                              .toISOString()
-                              .split("T")[0],
-                          });
-                        }}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
-                      />
-                    ) : (
-                      <p className="text-gray-900">
-                        {format(
-                          new Date(application.applied_date),
-                          "EEEE, MMMM dd, yyyy",
-                        )}
-                      </p>
-                    )}
                   </div>
+                </section>
 
-                  {/* Link */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Job Link
+                <section className="rounded-[28px] border border-blue-100 bg-blue-50 p-6 shadow-soft">
+                  <div className="mb-4">
+                    <h3 className="text-lg font-semibold text-gray-900">
+                      Application Details
+                    </h3>
+                  </div>
+                  <div className="space-y-5">
+                    <label className="space-y-2 text-sm font-medium text-gray-700">
+                      <span>Applied date</span>
+                      {isEditing && formData ? (
+                        <input
+                          type="date"
+                          name="applied_date"
+                          value={formData.applied_date.split("T")[0]}
+                          onChange={(e) => {
+                            setFormData({
+                              ...formData,
+                              applied_date: new Date(e.target.value)
+                                .toISOString()
+                                .split("T")[0],
+                            });
+                          }}
+                          className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 shadow-softer outline-none transition focus:border-blue-500 focus:shadow-[0_0_0_3px_rgba(18,151,217,0.18)]"
+                        />
+                      ) : (
+                        <p className="text-gray-900 text-base">
+                          {format(
+                            new Date(application.applied_date),
+                            "EEEE, MMMM dd, yyyy",
+                          )}
+                        </p>
+                      )}
                     </label>
-                    {isEditing && formData ? (
-                      <input
-                        type="url"
-                        name="link"
-                        value={formData.link}
-                        onChange={handleInputChange}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
-                        placeholder="https://..."
-                      />
-                    ) : (
-                      <a
-                        href={application.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-600 hover:underline break-all font-medium"
-                      >
-                        {application.link || "No link"}
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </div>
 
-              {/* Notes Section */}
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-gray-900">Notes</h3>
-                <div className="bg-amber-50 p-4 rounded-lg border border-amber-200">
+                    <label className="space-y-2 text-sm font-medium text-gray-700">
+                      <span>Job link</span>
+                      {isEditing && formData ? (
+                        <input
+                          type="url"
+                          name="link"
+                          value={formData.link}
+                          onChange={handleInputChange}
+                          placeholder="https://..."
+                          className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 shadow-softer outline-none transition focus:border-blue-500 focus:shadow-[0_0_0_3px_rgba(18,151,217,0.18)]"
+                        />
+                      ) : (
+                        <a
+                          href={application.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 underline hover:text-blue-700"
+                        >
+                          {application.link || "No link provided"}
+                        </a>
+                      )}
+                    </label>
+                  </div>
+                </section>
+
+                <section className="rounded-[28px] border border-amber-200 bg-amber-50 p-6 shadow-soft">
+                  <div className="mb-4">
+                    <h3 className="text-lg font-semibold text-gray-900">
+                      Notes
+                    </h3>
+                  </div>
                   {isEditing && formData ? (
                     <textarea
                       name="notes"
                       value={formData.notes}
                       onChange={handleInputChange}
                       rows={8}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none bg-white text-sm font-mono"
-                      placeholder="Add any notes about this application... (supports markdown!)"
+                      className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-900 shadow-softer outline-none transition focus:border-blue-500 focus:shadow-[0_0_0_3px_rgba(18,151,217,0.18)] resize-none"
+                      placeholder="Add any notes about this application..."
                     />
                   ) : (
-                    <div className="min-h-32 text-gray-900 space-y-2">
+                    <div className="min-h-[160px] space-y-3 text-gray-900">
                       {application.notes ? (
                         <Markdown
                           remarkPlugins={[remarkGfm, remarkBreaks]}
@@ -287,18 +289,6 @@ export function ApplicationSidebar({
                             h4: ({ node, ...props }) => (
                               <h4
                                 className="text-base font-bold mt-3 mb-1 text-gray-900"
-                                {...props}
-                              />
-                            ),
-                            h5: ({ node, ...props }) => (
-                              <h5
-                                className="font-bold mt-3 mb-1 text-gray-900"
-                                {...props}
-                              />
-                            ),
-                            h6: ({ node, ...props }) => (
-                              <h6
-                                className="font-bold mt-3 mb-1 text-gray-700"
                                 {...props}
                               />
                             ),
@@ -346,13 +336,13 @@ export function ApplicationSidebar({
                             ),
                             ul: ({ node, ...props }) => (
                               <ul
-                                className="list-disc list-inside text-gray-900 ml-2"
+                                className="list-disc list-inside text-gray-900 ml-4"
                                 {...props}
                               />
                             ),
                             ol: ({ node, ...props }) => (
                               <ol
-                                className="list-decimal list-inside text-gray-900 ml-2"
+                                className="list-decimal list-inside text-gray-900 ml-4"
                                 {...props}
                               />
                             ),
@@ -388,29 +378,30 @@ export function ApplicationSidebar({
                           {application.notes}
                         </Markdown>
                       ) : (
-                        <span className="text-gray-400 italic">No notes</span>
+                        <span className="text-gray-500 italic">
+                          No notes yet.
+                        </span>
                       )}
                     </div>
                   )}
-                </div>
+                </section>
               </div>
 
-              {/* Actions */}
-              <div className="flex gap-3 pt-6 border-t">
+              <div className="flex flex-col gap-3 pt-6 border-t sm:flex-row">
                 {isEditing ? (
                   <>
                     <button
                       onClick={handleSave}
                       disabled={isLoading}
-                      className="flex-1 bg-green-600 hover:bg-green-700 disabled:bg-green-400 text-white py-3 px-4 rounded-lg font-semibold transition flex items-center justify-center gap-2"
+                      className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-green-600 px-5 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-green-700 disabled:bg-green-400"
                     >
                       <Save size={18} />
-                      Save Changes
+                      Save changes
                     </button>
                     <button
                       onClick={() => setIsEditing(false)}
                       disabled={isLoading}
-                      className="flex-1 bg-gray-200 hover:bg-gray-300 disabled:bg-gray-100 text-gray-800 py-3 px-4 rounded-lg font-semibold transition"
+                      className="flex-1 rounded-xl bg-gray-100 px-5 py-3 text-sm font-semibold text-gray-700 transition hover:bg-gray-200 disabled:bg-gray-100"
                     >
                       Cancel
                     </button>
@@ -419,14 +410,14 @@ export function ApplicationSidebar({
                   <>
                     <button
                       onClick={handleOpenEdit}
-                      className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-semibold transition"
+                      className="flex-1 rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-blue-700"
                     >
                       Edit
                     </button>
                     <button
                       onClick={handleDelete}
                       disabled={isLoading}
-                      className="flex-1 bg-red-600 hover:bg-red-700 disabled:bg-red-400 text-white py-3 px-4 rounded-lg font-semibold transition flex items-center justify-center gap-2"
+                      className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-red-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-red-700 disabled:bg-red-400"
                     >
                       <Trash2 size={18} />
                       Delete

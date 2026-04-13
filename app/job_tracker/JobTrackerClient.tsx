@@ -27,12 +27,10 @@ export function JobTrackerClient({ columns, userId }: JobTrackerClientProps) {
   const [createModalOpen, setCreateModalOpen] = useState(false);
   const [syncError, setSyncError] = useState<string | null>(null);
 
-  // Update display when applications change
   useEffect(() => {
     setDisplayApplications(applications);
   }, [applications]);
 
-  // Sync to cloud when userId becomes available (user logged in)
   useEffect(() => {
     const handleSync = async () => {
       if (userId && isLocalOnly && applications.length > 0) {
@@ -84,46 +82,52 @@ export function JobTrackerClient({ columns, userId }: JobTrackerClientProps) {
   if (loading) {
     return (
       <div className="space-y-6">
-        <div className="h-12 bg-gray-200 rounded-lg animate-pulse" />
-        <div className="h-64 bg-gray-200 rounded-lg animate-pulse" />
+        <div className="h-12 rounded-3xl bg-gray-200 animate-pulse" />
+        <div className="h-64 rounded-3xl bg-gray-200 animate-pulse" />
       </div>
     );
   }
 
   return (
-    <div className="space-y-6">
-      {/* Sync Status Messages */}
+    <div className="space-y-8">
       {syncError && (
-        <div className="bg-yellow-50 border border-yellow-200 text-yellow-800 px-4 py-3 rounded-lg">
+        <div className="rounded-3xl border border-yellow-200 bg-yellow-50 px-5 py-4 text-sm text-yellow-800">
           {syncError}
         </div>
       )}
 
-      {/* Header with Create Button */}
-      <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-gray-900">
-          Job Applications Tracker
-        </h1>
-        <button
-          onClick={() => setCreateModalOpen(true)}
-          className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md font-medium transition flex items-center gap-2"
-        >
-          <Plus size={20} />
-          Add Application
-        </button>
-      </div>
+      <section className="rounded-[28px] border border-gray-200 bg-white p-6 shadow-soft">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-700">
+              Application dashboard
+            </p>
+            <h1 className="mt-3 text-3xl font-semibold text-gray-900">
+              Job Applications Tracker
+            </h1>
+          </div>
+          <button
+            onClick={() => setCreateModalOpen(true)}
+            className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-3 text-sm font-medium text-white shadow-soft transition hover:bg-blue-700"
+          >
+            <Plus size={18} />
+            Add Application
+          </button>
+        </div>
+      </section>
 
-      {/* Weekly Stats */}
-      <WeeklyStats applications={displayApplications} />
+      <section className="rounded-[28px] border border-gray-200 bg-white p-6 shadow-soft">
+        <WeeklyStats applications={displayApplications} />
+      </section>
 
-      {/* Applications Table */}
-      <DataTable
-        columns={columns}
-        data={displayApplications}
-        onRowClick={handleRowClick}
-      />
+      <section className="rounded-[28px] border border-gray-200 bg-white p-4 shadow-soft">
+        <DataTable
+          columns={columns}
+          data={displayApplications}
+          onRowClick={handleRowClick}
+        />
+      </section>
 
-      {/* Application Details Sidebar */}
       <ApplicationSidebar
         application={selectedApplication}
         isOpen={sidebarOpen}
@@ -135,7 +139,6 @@ export function JobTrackerClient({ columns, userId }: JobTrackerClientProps) {
         onDelete={handleDeleteApplication}
       />
 
-      {/* Create Application Modal */}
       <CreateApplicationModal
         isOpen={createModalOpen}
         onClose={() => setCreateModalOpen(false)}

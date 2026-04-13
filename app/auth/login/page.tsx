@@ -36,7 +36,6 @@ export default function LoginPage() {
         setEmail("");
         setPassword("");
         setIsSignUp(false);
-        // Show confirmation message
         alert(
           "Account created! Check your email to confirm, then you can log in.",
         );
@@ -52,108 +51,110 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8">
-        {/* Header */}
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50 to-white flex items-center justify-center px-4 py-10">
+      <div className="w-full max-w-xl bg-white border border-gray-200 rounded-[28px] shadow-card p-10">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            {isSignUp ? "Create Account" : "Welcome Back"}
+          <span className="inline-flex items-center rounded-full bg-cyan-50 text-cyan-800 px-3 py-1 text-sm font-medium">
+            {isSignUp ? "New here?" : "Welcome back"}
+          </span>
+          <h1 className="mt-6 text-4xl font-semibold tracking-tight text-gray-900">
+            {isSignUp ? "Create your account" : "Sign in to your workspace"}
           </h1>
-          <p className="text-gray-600">
+          <p className="mt-3 text-gray-600 max-w-2xl mx-auto">
             {isSignUp
-              ? "Sign up to save your applications to the cloud"
-              : "Log in to access your saved applications"}
+              ? "Set up your profile and keep your applications synced across devices."
+              : "Access your saved applications, notes, and job tracker from anywhere."}
           </p>
         </div>
 
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Error Message */}
+        <form onSubmit={handleSubmit} className="space-y-5">
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg text-sm">
+            <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
               {error}
             </div>
           )}
 
-          {/* Email */}
-          <div>
+          <div className="space-y-2">
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-gray-700 mb-2"
+              className="text-sm font-medium text-gray-700"
             >
-              Email
+              Email address
             </label>
             <div className="relative">
-              <Mail className="absolute left-3 top-3 text-gray-400" size={20} />
+              <Mail
+                className="pointer-events-none absolute left-4 top-3.5 text-gray-400"
+                size={20}
+              />
               <input
                 id="email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 pl-11 text-gray-800 placeholder:text-gray-400 shadow-softer outline-none transition duration-150 focus:border-blue-500 focus:shadow-[0_0_0_3px_rgba(18,151,217,0.18)]"
                 required
               />
             </div>
           </div>
 
-          {/* Password */}
-          <div>
+          <div className="space-y-2">
             <label
               htmlFor="password"
-              className="block text-sm font-medium text-gray-700 mb-2"
+              className="text-sm font-medium text-gray-700"
             >
               Password
             </label>
             <div className="relative">
-              <Lock className="absolute left-3 top-3 text-gray-400" size={20} />
+              <Lock
+                className="pointer-events-none absolute left-4 top-3.5 text-gray-400"
+                size={20}
+              />
               <input
                 id="password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder={isSignUp ? "At least 6 characters" : "••••••••"}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 pl-11 text-gray-800 placeholder:text-gray-400 shadow-softer outline-none transition duration-150 focus:border-blue-500 focus:shadow-[0_0_0_3px_rgba(18,151,217,0.18)]"
                 required
               />
             </div>
           </div>
 
-          {/* Submit Button */}
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-semibold py-3 px-4 rounded-lg transition flex items-center justify-center gap-2 mt-6"
+            className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 py-3 text-base font-medium text-white shadow-soft transition duration-150 hover:bg-blue-700 disabled:bg-blue-400"
           >
-            {loading ? "Loading..." : isSignUp ? "Create Account" : "Sign In"}
+            {loading ? "Please wait…" : isSignUp ? "Create Account" : "Sign In"}
             <ArrowRight size={18} />
           </button>
         </form>
 
-        {/* Toggle */}
-        <div className="mt-6 text-center">
-          <p className="text-gray-600 text-sm">
-            {isSignUp ? "Already have an account?" : "Don't have an account?"}{" "}
-            <button
-              onClick={() => {
-                setIsSignUp(!isSignUp);
-                setError(null);
-                setEmail("");
-                setPassword("");
-              }}
-              className="text-blue-600 hover:underline font-semibold"
-            >
-              {isSignUp ? "Sign In" : "Sign Up"}
-            </button>
-          </p>
+        <div className="mt-6 text-center text-sm text-gray-600">
+          <span>
+            {isSignUp
+              ? "Already have an account?"
+              : "Don’t have an account yet?"}
+          </span>
+          <button
+            type="button"
+            onClick={() => {
+              setIsSignUp(!isSignUp);
+              setError(null);
+              setEmail("");
+              setPassword("");
+            }}
+            className="ml-1 font-semibold text-blue-600 hover:underline"
+          >
+            {isSignUp ? "Sign in" : "Create one"}
+          </button>
         </div>
 
-        {/* Info */}
-        <div className="mt-8 pt-6 border-t border-gray-200">
-          <p className="text-xs text-gray-500 text-center">
-            We'll keep your job applications secure and synced across devices.
-            No spam, ever.
-          </p>
+        <div className="mt-8 rounded-2xl border border-gray-200 bg-gray-50 px-5 py-4 text-center text-sm text-gray-500">
+          We’ll keep your job applications secure and synced across devices. No
+          spam, ever.
         </div>
       </div>
     </div>

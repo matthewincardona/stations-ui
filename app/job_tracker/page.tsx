@@ -9,9 +9,11 @@ export default function JobTrackerPage() {
   const { user } = useAuth();
 
   return (
-    <div className="container mx-auto py-10">
+    <main className="container mx-auto max-w-6xl px-6 py-10">
       <CloudBackupBanner />
-      <JobTrackerClient columns={columns} userId={user?.id} />
-    </div>
+      <div className="rounded-[30px] border border-gray-200 bg-white p-8 shadow-card">
+        <JobTrackerClient columns={columns} userId={user?.id} />
+      </div>
+    </main>
   );
 }

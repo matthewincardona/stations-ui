@@ -69,17 +69,17 @@ const MultiSelect = ({
 
   return (
     <div
-      className={`relative inline-block min-w-52 ${isOpen ? "z-50" : "z-10"}`}
+      className={`relative inline-block min-w-[220px] ${isOpen ? "z-50" : "z-10"}`}
       ref={dropdownRef}
     >
       <button
         type="button"
-        className="flex gap-2 items-center justify-between w-full rounded-lg bg-[#4166e0] text-white px-4 py-2 text-base cursor-pointer transition-transform duration-300 ease-in-out"
+        className="flex w-full items-center justify-between gap-2 rounded-xl border border-gray-200 bg-white px-4 py-3 text-left text-sm font-medium text-gray-700 shadow-softer transition hover:border-blue-300"
         onClick={() => setIsOpen(!isOpen)}
       >
         <span>{label}</span>
         <ChevronDown
-          className={`w-5 h-5 transition-transform duration-300 ${
+          className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${
             isOpen ? "rotate-180" : ""
           }`}
         />
@@ -91,22 +91,22 @@ const MultiSelect = ({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="absolute z-10 w-full mt-2 bg-white rounded-md shadow-lg max-h-48 overflow-y-auto"
+            className="absolute z-50 mt-2 w-full rounded-3xl border border-gray-200 bg-white shadow-hover overflow-hidden"
           >
-            <ul className="py-1">
+            <ul className="py-2">
               {options.map((option) => (
                 <li
                   key={option.value}
-                  className="px-4 py-2 text-gray-700 cursor-pointer hover:bg-gray-100 flex items-center"
+                  className="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 cursor-pointer"
                   onClick={() => handleSelect(option.value)}
                 >
                   <input
                     type="checkbox"
                     checked={selected.includes(option.value)}
-                    onChange={() => {}}
-                    className="mr-2"
+                    onChange={() => handleSelect(option.value)}
+                    className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                   />
-                  {option.label}
+                  <span>{option.label}</span>
                 </li>
               ))}
             </ul>
@@ -127,11 +127,9 @@ function FilterContent() {
     return param ? param.split(";") : [];
   };
 
-  const [levels, setLevels] = useState<string[]>(getArrayFromParams("level"));
-  const [titles, setTitles] = useState<string[]>(getArrayFromParams("title"));
-  const [locationsState, setLocationsState] = useState<string[]>(
-    getArrayFromParams("location"),
-  );
+  const levels = getArrayFromParams("level");
+  const titles = getArrayFromParams("title");
+  const locationsState = getArrayFromParams("location");
 
   const handleFilterChange = (filterType: string, values: string[]) => {
     const params = new URLSearchParams(searchParams);
@@ -143,38 +141,9 @@ function FilterContent() {
     replace(`${pathname}?${params.toString()}`);
   };
 
-  useEffect(() => {
-    setLevels(getArrayFromParams("level"));
-    setTitles(getArrayFromParams("title"));
-    setLocationsState(getArrayFromParams("location"));
-  }, [searchParams]);
-
-  const removeFilter = (filterType: string, value: string) => {
-    let currentValues: string[];
-    let setter: (values: string[]) => void;
-
-    if (filterType === "level") {
-      currentValues = levels;
-      setter = setLevels;
-    } else if (filterType === "title") {
-      currentValues = titles;
-      setter = setTitles;
-    } else {
-      currentValues = locationsState;
-      setter = setLocationsState;
-    }
-
-    const newValues = currentValues.filter((v) => v !== value);
-    setter(newValues);
-    handleFilterChange(filterType, newValues);
-  };
-
   const totalSelected = levels.length + titles.length + locationsState.length;
 
   const clearAllFilters = () => {
-    setLevels([]);
-    setTitles([]);
-    setLocationsState([]);
     const params = new URLSearchParams(searchParams);
     params.delete("level");
     params.delete("title");
@@ -183,85 +152,82 @@ function FilterContent() {
   };
 
   return (
-    <div>
-      <div className="max-w-4xl mx-auto mt-2 flex items-center justify-start">
-        <div className="flex flex-wrap items-center gap-4">
-          <MultiSelect
-            options={jobLevels}
-            selected={levels}
-            onChange={(selected) => {
-              setLevels(selected);
-              handleFilterChange("level", selected);
-            }}
-            label="Job Level"
-          />
-          <MultiSelect
-            options={jobTitles}
-            selected={titles}
-            onChange={(selected) => {
-              setTitles(selected);
-              handleFilterChange("title", selected);
-            }}
-            label="Job Title"
-          />
-          <MultiSelect
-            options={locations}
-            selected={locationsState}
-            onChange={(selected) => {
-              setLocationsState(selected);
-              handleFilterChange("location", selected);
-            }}
-            label="Location"
-          />
-        </div>
+    <div className="space-y-4">
+      <div className="grid gap-4 lg:grid-cols-3">
+        <MultiSelect
+          options={jobLevels}
+          selected={levels}
+          onChange={(selected) => handleFilterChange("level", selected)}
+          label="Job Level"
+        />
+        <MultiSelect
+          options={jobTitles}
+          selected={titles}
+          onChange={(selected) => handleFilterChange("title", selected)}
+          label="Job Title"
+        />
+        <MultiSelect
+          options={locations}
+          selected={locationsState}
+          onChange={(selected) => handleFilterChange("location", selected)}
+          label="Location"
+        />
       </div>
-      <div className="max-w-4xl mx-auto mt-4 flex flex-wrap items-center gap-2">
+
+      <div className="flex flex-wrap items-center gap-2">
         {levels.map((level) => (
-          <div
+          <button
             key={level}
-            className="flex items-center bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700"
+            type="button"
+            onClick={() =>
+              handleFilterChange(
+                "level",
+                levels.filter((v) => v !== level),
+              )
+            }
+            className="inline-flex items-center gap-2 rounded-full bg-gray-100 px-3 py-1.5 text-sm font-semibold text-gray-700 transition hover:bg-gray-200"
           >
-            <span>{jobLevels.find((l) => l.value === level)?.label}</span>
-            <button
-              onClick={() => removeFilter("level", level)}
-              className="ml-2"
-            >
-              <X size={16} />
-            </button>
-          </div>
+            {jobLevels.find((l) => l.value === level)?.label}
+            <X size={14} />
+          </button>
         ))}
         {titles.map((title) => (
-          <div
+          <button
             key={title}
-            className="flex items-center bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700"
+            type="button"
+            onClick={() =>
+              handleFilterChange(
+                "title",
+                titles.filter((v) => v !== title),
+              )
+            }
+            className="inline-flex items-center gap-2 rounded-full bg-gray-100 px-3 py-1.5 text-sm font-semibold text-gray-700 transition hover:bg-gray-200"
           >
-            <span>{jobTitles.find((t) => t.value === title)?.label}</span>
-            <button
-              onClick={() => removeFilter("title", title)}
-              className="ml-2"
-            >
-              <X size={16} />
-            </button>
-          </div>
+            {jobTitles.find((t) => t.value === title)?.label}
+            <X size={14} />
+          </button>
         ))}
         {locationsState.map((location) => (
-          <div
+          <button
             key={location}
-            className="flex items-center bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700"
+            type="button"
+            onClick={() =>
+              handleFilterChange(
+                "location",
+                locationsState.filter((v) => v !== location),
+              )
+            }
+            className="inline-flex items-center gap-2 rounded-full bg-gray-100 px-3 py-1.5 text-sm font-semibold text-gray-700 transition hover:bg-gray-200"
           >
-            <span>{locations.find((l) => l.value === location)?.label}</span>
-            <button
-              onClick={() => removeFilter("location", location)}
-              className="ml-2"
-            >
-              <X size={16} />
-            </button>
-          </div>
+            {locations.find((l) => l.value === location)?.label}
+            <X size={14} />
+          </button>
         ))}
+
         {totalSelected >= 2 && (
           <button
             onClick={clearAllFilters}
-            className="text-sm text-gray-500 hover:text-gray-700"
+            className="ml-auto rounded-full bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-soft transition hover:bg-blue-700"
           >
             Clear all
           </button>

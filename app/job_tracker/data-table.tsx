@@ -34,11 +34,11 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div className="overflow-hidden rounded-md border">
-      <Table>
+    <div className="overflow-hidden rounded-[24px] border border-gray-200 shadow-soft">
+      <Table className="min-w-full bg-white">
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
+            <TableRow key={headerGroup.id} className="bg-gray-50">
               {headerGroup.headers.map((header) => {
                 return (
                   <TableHead key={header.id}>
@@ -62,7 +62,9 @@ export function DataTable<TData, TValue>({
                 data-state={row.getIsSelected() && "selected"}
                 onClick={() => onRowClick?.(row.original)}
                 className={
-                  onRowClick ? "cursor-pointer hover:bg-slate-100" : ""
+                  onRowClick
+                    ? "cursor-pointer hover:bg-gray-50 transition-colors"
+                    : ""
                 }
               >
                 {row.getVisibleCells().map((cell) => (
@@ -74,7 +76,10 @@ export function DataTable<TData, TValue>({
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
+              <TableCell
+                colSpan={columns.length}
+                className="h-24 text-center text-gray-500"
+              >
                 No results.
               </TableCell>
             </TableRow>

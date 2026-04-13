@@ -9,8 +9,8 @@ interface JobCardProps {
   date_posted: string;
   location: string;
   workType: string;
-  jobUrl: string; // fallback
-  job_url_direct?: string; // preferred
+  jobUrl: string;
+  job_url_direct?: string;
   skills: string;
   summary: string;
   expanded: boolean;
@@ -18,84 +18,59 @@ interface JobCardProps {
 }
 
 export default function JobCard({
-  id,
   title,
   company,
   date_posted,
   location,
   workType,
   jobUrl,
-  job_url_direct,
   skills,
   summary,
   expanded,
   onToggle,
 }: JobCardProps) {
   const formattedSkills = Array.isArray(skills) ? skills.join(", ") : skills;
-
   const contentRef = useRef<HTMLDivElement>(null);
 
-  function QuickOverview({
-    summary,
-    formattedSkills,
-  }: {
-    summary: string;
-    formattedSkills: string;
-  }) {
-    if (summary && formattedSkills) {
-      return (
-        <div>
-          <p>
-            <strong>Quick Overview</strong>
-          </p>
-          <p>{summary}</p>
-          <div className="mt-4 flex gap-2 items-center">
-            <Code className="w-4.5 h-4.5" />
-            <p>Looking for skills in {formattedSkills}</p>
-          </div>
-        </div>
-      );
-    }
-    return <p>No overview available ;(</p>;
-  }
-
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 0 }}
+    <motion.article
+      initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.25, ease: "easeOut" }}
-      className="relative 
-      rounded-3xl bg-[#fbfbfb] border-gray-200 border
-      transition-all duration-200 ease-out
-      hover:shadow-lg hover:border-[#FB7D0E]
-    "
+      className="overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-card transition hover:shadow-hover focus-within:ring-2 focus-within:ring-blue-200"
     >
       <button
+        type="button"
         onClick={onToggle}
-        className="cursor-pointer p-8 w-full text-left flex gap-4 justify-between items-start"
+        className="w-full px-6 py-6 text-left"
       >
-        <div className="flex flex-col gap-2">
-          <h3 className="font-semibold text-xl leading-snug line-clamp-2">
-            {title}
-          </h3>
-
-          <p className="text-[#4A5565] text-base truncate">{company}</p>
-
-          <div className="flex text-sm gap-4 items-center">
-            <p>{date_posted}</p>
-            <span className="flex gap-1.5 items-center">
-              <MapPin className="w-3.5 h-3.5" />
-              {location}
-            </span>
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          <div className="space-y-3">
+            <div className="flex flex-wrap gap-2 text-sm">
+              {workType ? (
+                <span className="rounded-full bg-cyan-50 px-3 py-1 text-cyan-900">
+                  {workType}
+                </span>
+              ) : null}
+              <span className="rounded-full bg-gray-100 px-3 py-1 text-gray-700">
+                {location}
+              </span>
+            </div>
+            <div>
+              <h3 className="text-xl font-semibold text-gray-900 leading-snug line-clamp-2">
+                {title}
+              </h3>
+              <p className="mt-2 text-sm text-gray-600">{company}</p>
+            </div>
           </div>
-        </div>
-
-        <div className="w-5 h-5">
-          <ChevronDown
-            className={`w-5 h-5 transition-transform duration-200 ${
-              expanded ? "rotate-180" : ""
-            }`}
-          />
+          <div className="flex items-center gap-4 text-sm text-gray-500">
+            <span>{date_posted}</span>
+            <ChevronDown
+              className={`h-5 w-5 text-gray-500 transition-transform duration-200 ${
+                expanded ? "rotate-180" : ""
+              }`}
+            />
+          </div>
         </div>
       </button>
 
@@ -104,26 +79,41 @@ export default function JobCard({
         animate={{
           height: expanded ? contentRef.current?.scrollHeight : 0,
         }}
-        transition={{ duration: 0.25, ease: "easeInOut" }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
       >
         <motion.div
           ref={contentRef}
           initial={false}
           animate={expanded ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
-          transition={{ duration: 0.25, ease: "easeOut" }}
-          className="p-8 pt-0 text-gray-700 leading-relaxed space-y-1"
+          transition={{ duration: 0.2, ease: "easeOut" }}
+          className="border-t border-gray-100 bg-gray-50 px-6 py-5 text-gray-700"
         >
-          <QuickOverview summary={summary} formattedSkills={formattedSkills} />
-          <a
-            href={jobUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="ml-auto mt-8 text-white block bg-[#4166e0] w-fit py-2 px-4 rounded-lg"
-          >
-            Apply Now
-          </a>
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <p className="text-sm font-semibold text-gray-900">
+                Quick Overview
+              </p>
+              <p className="text-sm leading-relaxed text-gray-600">
+                {summary || "No overview available yet."}
+              </p>
+            </div>
+            {formattedSkills ? (
+              <div className="flex items-center gap-2 text-sm text-gray-600">
+                <Code className="h-4 w-4 text-cyan-500" />
+                <p>Looking for skills in {formattedSkills}</p>
+              </div>
+            ) : null}
+            <a
+              href={jobUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center rounded-xl bg-orange-500 px-5 py-2.5 text-sm font-semibold text-white shadow-soft transition hover:bg-orange-600"
+            >
+              Apply Now
+            </a>
+          </div>
         </motion.div>
       </motion.div>
-    </motion.div>
+    </motion.article>
   );
 }

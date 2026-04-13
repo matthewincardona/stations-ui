@@ -82,16 +82,14 @@ export function CreateApplicationModal({
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/50 z-40"
+            className="fixed inset-0 bg-black/40 z-40"
           />
 
-          {/* Modal */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -99,138 +97,109 @@ export function CreateApplicationModal({
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
             className="fixed inset-0 z-50 flex items-center justify-center p-4"
           >
-            <div className="bg-white rounded-lg shadow-lg max-w-md w-full max-h-[90vh] overflow-y-auto">
-              <div className="p-6 space-y-4">
-                {/* Header */}
-                <div className="flex items-center justify-between">
-                  <h2 className="text-2xl font-bold">Add Application</h2>
+            <div className="w-full max-w-lg overflow-y-auto rounded-[28px] bg-white shadow-card">
+              <div className="p-8 space-y-6">
+                <div className="flex items-center justify-between gap-4">
+                  <div>
+                    <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-700">
+                      New application
+                    </p>
+                    <h2 className="mt-2 text-2xl font-semibold text-gray-900">
+                      Add application details
+                    </h2>
+                  </div>
                   <button
                     onClick={onClose}
-                    className="p-1 hover:bg-gray-100 rounded-md transition"
+                    className="rounded-2xl p-2 text-gray-500 transition hover:bg-gray-100"
                   >
                     <X size={24} />
                   </button>
                 </div>
 
                 {error && (
-                  <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded text-sm">
+                  <div className="rounded-3xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
                     {error}
                   </div>
                 )}
 
-                {/* Form */}
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  {/* Job Title */}
-                  <div>
-                    <label
-                      htmlFor="title"
-                      className="block text-sm font-medium text-gray-700 mb-1"
-                    >
-                      Job Title *
+                <form onSubmit={handleSubmit} className="space-y-5">
+                  <div className="grid gap-5 sm:grid-cols-2">
+                    <label className="space-y-2 text-sm font-medium text-gray-700">
+                      <span>Job title *</span>
+                      <input
+                        type="text"
+                        name="title"
+                        value={formData.title}
+                        onChange={handleInputChange}
+                        placeholder="e.g. Product Designer"
+                        className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 shadow-softer outline-none transition focus:border-blue-500 focus:shadow-[0_0_0_3px_rgba(18,151,217,0.18)]"
+                        required
+                      />
                     </label>
-                    <input
-                      type="text"
-                      id="title"
-                      name="title"
-                      value={formData.title}
-                      onChange={handleInputChange}
-                      placeholder="e.g., Senior React Developer"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      required
-                    />
+                    <label className="space-y-2 text-sm font-medium text-gray-700">
+                      <span>Company *</span>
+                      <input
+                        type="text"
+                        name="company"
+                        value={formData.company}
+                        onChange={handleInputChange}
+                        placeholder="e.g. Acme Corp"
+                        className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 shadow-softer outline-none transition focus:border-blue-500 focus:shadow-[0_0_0_3px_rgba(18,151,217,0.18)]"
+                        required
+                      />
+                    </label>
                   </div>
 
-                  {/* Company */}
-                  <div>
-                    <label
-                      htmlFor="company"
-                      className="block text-sm font-medium text-gray-700 mb-1"
-                    >
-                      Company *
+                  <div className="grid gap-5 sm:grid-cols-2">
+                    <label className="space-y-2 text-sm font-medium text-gray-700">
+                      <span>Applied date</span>
+                      <input
+                        type="date"
+                        name="applied_date"
+                        value={formData.applied_date}
+                        onChange={handleInputChange}
+                        className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 shadow-softer outline-none transition focus:border-blue-500 focus:shadow-[0_0_0_3px_rgba(18,151,217,0.18)]"
+                      />
                     </label>
-                    <input
-                      type="text"
-                      id="company"
-                      name="company"
-                      value={formData.company}
-                      onChange={handleInputChange}
-                      placeholder="e.g., Acme Corp"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      required
-                    />
+                    <label className="space-y-2 text-sm font-medium text-gray-700">
+                      <span>Job link</span>
+                      <input
+                        type="url"
+                        name="link"
+                        value={formData.link}
+                        onChange={handleInputChange}
+                        placeholder="https://..."
+                        className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 shadow-softer outline-none transition focus:border-blue-500 focus:shadow-[0_0_0_3px_rgba(18,151,217,0.18)]"
+                      />
+                    </label>
                   </div>
 
-                  {/* Applied Date */}
-                  <div>
-                    <label
-                      htmlFor="applied_date"
-                      className="block text-sm font-medium text-gray-700 mb-1"
-                    >
-                      Applied Date
-                    </label>
-                    <input
-                      type="date"
-                      id="applied_date"
-                      name="applied_date"
-                      value={formData.applied_date}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                  </div>
-
-                  {/* Link */}
-                  <div>
-                    <label
-                      htmlFor="link"
-                      className="block text-sm font-medium text-gray-700 mb-1"
-                    >
-                      Job Link
-                    </label>
-                    <input
-                      type="url"
-                      id="link"
-                      name="link"
-                      value={formData.link}
-                      onChange={handleInputChange}
-                      placeholder="https://..."
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                  </div>
-
-                  {/* Notes */}
-                  <div>
-                    <label
-                      htmlFor="notes"
-                      className="block text-sm font-medium text-gray-700 mb-1"
-                    >
-                      Notes
-                    </label>
+                  <label className="space-y-2 text-sm font-medium text-gray-700">
+                    <span>Notes</span>
                     <textarea
-                      id="notes"
                       name="notes"
                       value={formData.notes}
                       onChange={handleInputChange}
+                      rows={5}
                       placeholder="Add any notes about this application..."
-                      rows={4}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                      className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 shadow-softer outline-none transition focus:border-blue-500 focus:shadow-[0_0_0_3px_rgba(18,151,217,0.18)] resize-none"
                     />
-                  </div>
+                  </label>
 
-                  {/* Actions */}
-                  <div className="flex gap-2 pt-4 border-t">
+                  <div className="flex flex-col gap-3 sm:flex-row">
                     <button
                       type="submit"
                       disabled={isLoading}
-                      className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white py-2 px-4 rounded-md font-medium transition flex items-center justify-center gap-2"
+                      className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-blue-700 disabled:bg-blue-400"
                     >
                       <Plus size={18} />
-                      Add
+                      Add application
                     </button>
                     <button
                       type="button"
                       onClick={onClose}
                       disabled={isLoading}
-                      className="flex-1 bg-gray-200 hover:bg-gray-300 disabled:bg-gray-100 text-gray-800 py-2 px-4 rounded-md font-medium transition"
+                      className="flex-1 rounded-xl bg-gray-100 px-5 py-3 text-sm font-semibold text-gray-700 transition hover:bg-gray-200 disabled:bg-gray-100"
                     >
                       Cancel
                     </button>

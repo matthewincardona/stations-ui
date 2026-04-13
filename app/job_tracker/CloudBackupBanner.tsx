@@ -12,24 +12,30 @@ export function CloudBackupBanner() {
   }
 
   return (
-    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-4 mb-6 flex items-center justify-between">
-      <div className="flex items-center gap-3">
-        <Cloud className="text-blue-600" size={24} />
-        <div>
-          <p className="font-semibold text-gray-900">Save to the Cloud</p>
-          <p className="text-sm text-gray-600">
-            Sign up to sync your applications across devices and never lose your
-            progress.
-          </p>
+    <div className="mb-6 rounded-[28px] border border-cyan-100 bg-cyan-50 p-5 shadow-soft">
+      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div className="flex items-center gap-3">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white shadow-soft">
+            <Cloud className="text-cyan-600" size={24} />
+          </div>
+          <div>
+            <p className="text-lg font-semibold text-gray-900">
+              Save to the Cloud
+            </p>
+            <p className="mt-1 text-sm text-gray-600">
+              Sign up to sync your applications across devices and keep progress
+              safe.
+            </p>
+          </div>
         </div>
+        <Link
+          href="/auth/login"
+          className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-3 text-sm font-medium text-white shadow-soft transition hover:bg-blue-700"
+        >
+          <LogIn size={18} />
+          Sign Up
+        </Link>
       </div>
-      <Link
-        href="/auth/login"
-        className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition whitespace-nowrap ml-4"
-      >
-        <LogIn size={18} />
-        Sign Up
-      </Link>
     </div>
   );
 }
