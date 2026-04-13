@@ -82,8 +82,8 @@ export function JobTrackerClient({ columns, userId }: JobTrackerClientProps) {
   if (loading) {
     return (
       <div className="space-y-6">
-        <div className="h-12 rounded-3xl bg-gray-200 animate-pulse" />
-        <div className="h-64 rounded-3xl bg-gray-200 animate-pulse" />
+        <div className="h-12 rounded-3xl bg-gradient-to-r from-blue-200 to-cyan-200 animate-pulse" />
+        <div className="h-64 rounded-3xl bg-gradient-to-r from-indigo-200 to-teal-200 animate-pulse" />
       </div>
     );
   }
@@ -96,19 +96,19 @@ export function JobTrackerClient({ columns, userId }: JobTrackerClientProps) {
         </div>
       )}
 
-      <section className="rounded-[28px] border border-gray-200 bg-white p-6 shadow-soft">
+      <section className="rounded-3xl border border-blue-100 bg-gradient-to-br from-blue-50 to-cyan-50 p-8 shadow-soft">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-700">
+            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-blue-700">
               Application dashboard
             </p>
-            <h1 className="mt-3 text-3xl font-semibold text-gray-900">
+            <h1 className="mt-3 text-3xl font-bold bg-gradient-to-r from-blue-900 to-cyan-900 bg-clip-text text-transparent">
               Job Applications Tracker
             </h1>
           </div>
           <button
             onClick={() => setCreateModalOpen(true)}
-            className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-3 text-sm font-medium text-white shadow-soft transition hover:bg-blue-700"
+            className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 px-5 py-3 text-sm font-medium text-white shadow-soft transition hover:from-blue-700 hover:to-cyan-700"
           >
             <Plus size={18} />
             Add Application
@@ -116,11 +116,11 @@ export function JobTrackerClient({ columns, userId }: JobTrackerClientProps) {
         </div>
       </section>
 
-      <section className="rounded-[28px] border border-gray-200 bg-white p-6 shadow-soft">
+      <section className="rounded-3xl border border-indigo-100 bg-gradient-to-br from-indigo-50 to-purple-50 p-8 shadow-soft">
         <WeeklyStats applications={displayApplications} />
       </section>
 
-      <section className="rounded-[28px] border border-gray-200 bg-white p-4 shadow-soft">
+      <section className="rounded-3xl border border-emerald-100 bg-gradient-to-br from-emerald-50 to-teal-50 p-6 shadow-soft">
         <DataTable
           columns={columns}
           data={displayApplications}
