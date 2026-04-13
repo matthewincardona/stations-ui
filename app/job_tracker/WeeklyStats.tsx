@@ -9,12 +9,12 @@ interface WeeklyStatsProps {
 
 export function WeeklyStats({ applications }: WeeklyStatsProps) {
   const today = new Date();
-  const weekStart = startOfWeek(today);
+  const weekStart = startOfWeek(today, { weekStartsOn: 1 });
   const daysOfWeek = eachDayOfInterval({ start: weekStart, end: today });
 
   const dailyCount = daysOfWeek.map((day) => {
     const count = applications.filter((app) => {
-      const appDate = new Date(app.applied_date);
+      const appDate = new Date(app.applied_date + "T00:00:00");
       return format(appDate, "yyyy-MM-dd") === format(day, "yyyy-MM-dd");
     }).length;
     return {
