@@ -120,7 +120,7 @@ export function JobTrackerClient({ columns, userId }: JobTrackerClientProps) {
         <WeeklyStats applications={displayApplications} />
       </section>
 
-      <section className="rounded-3xl border border-emerald-100 bg-gradient-to-br from-emerald-50 to-teal-50 p-6 shadow-soft">
+      <section className="rounded-3xl border border-gray-200 p-6 shadow-soft">
         <DataTable
           columns={columns}
           data={displayApplications}
